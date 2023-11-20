@@ -25,7 +25,23 @@ async function run() {
         await client.connect();
 
 
-        
+        const portfolioCollection = client.db("my-portfolio").collection("portfolio");
+       
+
+        app.get('/', (req, res) => {
+            res.send('Portfolio')
+        })
+
+        app.get('/portfolio',async (req, res) => {
+            const result = await portfolioCollection.find().toArray();
+
+            res.send(result);
+        })
+
+
+
+
+
 
 
         // Send a ping to confirm a successful connection
@@ -41,9 +57,7 @@ run().catch(console.dir);
 
 
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
+
 
 app.listen(port, () => {
 
