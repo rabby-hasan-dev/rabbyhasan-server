@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 require('dotenv').config()
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json())
@@ -28,9 +28,7 @@ async function run() {
         const portfolioCollection = client.db("my-portfolio").collection("portfolio");
 
 
-        app.get('/', (req, res) => {
-            res.send('Portfolio')
-        })
+
 
         app.get('/portfolio', async (req, res) => {
             const result = await portfolioCollection.find().toArray();
@@ -40,7 +38,7 @@ async function run() {
 
 
 
-
+       
 
 
 
@@ -56,7 +54,9 @@ run().catch(console.dir);
 
 
 
-
+app.get('/', (req, res) => {
+    res.send(' Copyright @ Rabby Hasan . This is for Rabby Hasan')
+})
 
 
 app.listen(port, () => {
