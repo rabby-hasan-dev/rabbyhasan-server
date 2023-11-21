@@ -5,7 +5,7 @@ require('dotenv').config()
 const port = process.env.PORT || 3000;
 
 app.use(cors());
-
+app.use(express.json())
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = `mongodb+srv://${process.env.dbUser}:${process.env.dbPassword}@cluster0.p6rgmv3.mongodb.net/?retryWrites=true&w=majority`;
@@ -26,13 +26,13 @@ async function run() {
 
 
         const portfolioCollection = client.db("my-portfolio").collection("portfolio");
-       
+
 
         app.get('/', (req, res) => {
             res.send('Portfolio')
         })
 
-        app.get('/portfolio',async (req, res) => {
+        app.get('/portfolio', async (req, res) => {
             const result = await portfolioCollection.find().toArray();
 
             res.send(result);
