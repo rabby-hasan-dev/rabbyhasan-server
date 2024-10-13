@@ -1,10 +1,11 @@
 import express from 'express';
 
+
 import auth from '../../middlewares/auth';
 import { USER_ROLE } from '../../constant';
 import { multerUpload } from '../../config/multer.config';
 import { parseBody } from '../../middlewares/bodyparser';
-import { ProjectsControllers } from './projects.controller';
+import { TestimonialControllers } from './testimonial.controller';
 
 const router = express.Router();
 
@@ -14,22 +15,22 @@ router.post(
   multerUpload.fields([{ name: 'file' }]),
   parseBody,
 
-  ProjectsControllers.createProjects,
+  TestimonialControllers.createTestimonial,
 );
 router.get('/',
   auth(USER_ROLE.admin, USER_ROLE.user, USER_ROLE.superAdmin),
-  ProjectsControllers.getAllProjectss);
+  TestimonialControllers.getAllTestimonials);
 
 router.get(
   '/:projectId',
 
-  ProjectsControllers.getSingleProject,
+  TestimonialControllers.getSingleTestimonial,
 );
 
 router.get(
   '/author/:userId',
   auth(USER_ROLE.admin, USER_ROLE.user),
-  ProjectsControllers.getAllProjectssByAuthor,
+  TestimonialControllers.getAllTestimonialsByAuthor,
 );
 
 router.put(
@@ -37,13 +38,13 @@ router.put(
   auth(USER_ROLE.user, USER_ROLE.admin),
   multerUpload.fields([{ name: 'file' }]),
   parseBody,
-  ProjectsControllers.updateProjects,
+  TestimonialControllers.updateTestimonial,
 );
 router.delete(
   '/:projectId',
   auth(USER_ROLE.admin, USER_ROLE.user, USER_ROLE.superAdmin),
-  ProjectsControllers.deleteProjects,
+  TestimonialControllers.deleteTestimonial,
 );
 
 
-export const ProjectRoutes = router;
+export const testimonialRoutes = router;

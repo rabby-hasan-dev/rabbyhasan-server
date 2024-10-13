@@ -44,7 +44,7 @@ ProjectSchema.pre('aggregate', function (next) {
 });
 
 //creating a custom static method
-ProjectSchema.statics.isRecipeExists = async function (id: string) {
+ProjectSchema.statics.isProjectExists = async function (id: string) {
   const existingProject = await Project.findById(id);
   return existingProject;
 };
