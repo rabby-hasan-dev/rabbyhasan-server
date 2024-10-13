@@ -6,6 +6,7 @@ import { experienceRoutes } from '../modules/experience/experience.route';
 import { clientRoutes } from '../modules/client/client.route';
 import { testimonialRoutes } from '../modules/testimonial/testimonial.route';
 import { AchievementRoutes } from '../modules/achievement/achievement.route';
+import { CertificationRoutes } from '../modules/Certification/Certification.route';
 
 const router = Router();
 
@@ -37,6 +38,10 @@ const moduleRoutes = [
   {
     path: '/achievement',
     route: AchievementRoutes,
+  },
+  {
+    path: '/certification',
+    route: CertificationRoutes,
   },
 ];
 

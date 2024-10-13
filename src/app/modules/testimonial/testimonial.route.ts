@@ -22,7 +22,7 @@ router.get('/',
   TestimonialControllers.getAllTestimonials);
 
 router.get(
-  '/:projectId',
+  '/:testimonialId',
 
   TestimonialControllers.getSingleTestimonial,
 );
@@ -34,14 +34,14 @@ router.get(
 );
 
 router.put(
-  '/:projectId',
+  '/:testimonialId',
   auth(USER_ROLE.user, USER_ROLE.admin),
   multerUpload.fields([{ name: 'file' }]),
   parseBody,
   TestimonialControllers.updateTestimonial,
 );
 router.delete(
-  '/:projectId',
+  '/:testimonialId',
   auth(USER_ROLE.admin, USER_ROLE.user, USER_ROLE.superAdmin),
   TestimonialControllers.deleteTestimonial,
 );
