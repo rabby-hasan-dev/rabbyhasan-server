@@ -6,7 +6,6 @@ import {
   TUserName,
   UserModel,
   UserRoleEnum,
-  UserStatusEnum,
 } from './user.interface';
 
 const userNameSchema = new Schema<TUserName>({
@@ -24,63 +23,21 @@ const userNameSchema = new Schema<TUserName>({
 
 const userSchema = new Schema<TUser, UserModel>(
   {
-    name: {
-      type: userNameSchema,
-    },
-    bio: {
-      type: String,
-      trim: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      trim: true,
-      lowercase: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-
-    needsPasswordChange: {
-      type: Boolean,
-      default: true,
-    },
-    passwordChangedAt: {
-      type: Date,
-    },
-    role: {
-      type: String,
-      enum: UserRoleEnum,
-      default: UserRoleEnum.USER,
-      required: true,
-    },
-    isVerified: {
-      type: Boolean,
-      default: false,
-    },
-    status: {
-      type: String,
-      enum: UserStatusEnum,
-      default: UserStatusEnum.IN_PROGRESS,
-    },
-    profilePicture: {
-      type: String,
-
-    },
-    phone: {
-      type: String,
-
-    },
-    address: {
-      type: String,
-    },
-
-    isDeleted: {
-      type: Boolean,
-      default: false,
-    },
+    name: { type: userNameSchema, },
+    bio: { type: String, trim: true, },
+    email: { type: String, required: true, unique: true, trim: true, lowercase: true, },
+    password: { type: String, required: true, },
+    needsPasswordChange: { type: Boolean, default: true, },
+    passwordChangedAt: { type: Date },
+    role: { type: String, enum: UserRoleEnum, default: UserRoleEnum.USER, required: true },
+    isVerified: { type: Boolean, default: false },
+    profilePicture: { type: String, },
+    phone: { type: String, },
+    address: { type: String, },
+    projects: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
+    experience: [{ type: Schema.Types.ObjectId, ref: 'Experience' }],
+    technologies: [{ type: Schema.Types.ObjectId, ref: 'Technology' }],
+    isDeleted: { type: Boolean, default: false },
   },
   {
     timestamps: true,
