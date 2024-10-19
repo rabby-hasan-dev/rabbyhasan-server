@@ -7,6 +7,7 @@ import { clientRoutes } from '../modules/client/client.route';
 import { testimonialRoutes } from '../modules/testimonial/testimonial.route';
 import { AchievementRoutes } from '../modules/achievement/achievement.route';
 import { CertificationRoutes } from '../modules/Certification/Certification.route';
+import { ProjectRoutes } from '../modules/projects/projects.route';
 
 const router = Router();
 
@@ -22,6 +23,10 @@ const moduleRoutes = [
   {
     path: '/technology',
     route: technologyRoutes,
+  },
+  {
+    path: '/projects',
+    route: ProjectRoutes,
   },
   {
     path: '/experience',

@@ -4,6 +4,7 @@ import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import AppError from '../../errors/AppError';
 import { CertificationServices } from './Certification.service';
+import { TImageFiles } from '../../interface/image.interface';
 
 
 const createCertifications = catchAsync(async (req, res) => {
@@ -13,12 +14,10 @@ const createCertifications = catchAsync(async (req, res) => {
 
 
   const CertificationData = req.body;
-  const userId = req.user.userId;
+  const files = req.files;
   const result = await CertificationServices.CreateCertificationIntoDB(
-    userId,
     CertificationData,
-
-  );
+    files as TImageFiles);
 
 
   sendResponse(res, {
@@ -59,12 +58,15 @@ const getAllCertificationss: RequestHandler = catchAsync(async (req, res) => {
 
 
 const updateCertifications = catchAsync(async (req, res) => {
+
   const { certificationId } = req.params;
   const CertificationsData = req.body;
+  const file = req.files;
 
   const result = await CertificationServices.updateCertificationIntoDB(
     certificationId,
     CertificationsData,
+    file as TImageFiles,
   );
 
 

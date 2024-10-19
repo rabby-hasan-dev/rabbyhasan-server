@@ -9,7 +9,10 @@ const TestimonialSchema: Schema<ITestimonial, TestimonialModel> = new Schema<ITe
   position: { type: String, required: true },
   company: { type: String },
   message: { type: String, required: true },
-  imageUrl: { type: String },
+  images: [{
+    type: String,
+    required: [true, 'Image is required'],
+  }],
   isDeleted: { type: Boolean, default: false },
 
 }, {

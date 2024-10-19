@@ -9,7 +9,7 @@ import { TestimonialSearchableFields } from './testimonial.constant';
 
 
 const getAllTestimonialFromDB = async (query: Record<string, unknown>) => {
-  const UserQuery = new QueryBuilder(Testimonial.find().populate('author'), query)
+  const UserQuery = new QueryBuilder(Testimonial.find(), query)
     .search(TestimonialSearchableFields)
     .filter()
     .sort()
@@ -27,16 +27,14 @@ const getAllTestimonialFromDB = async (query: Record<string, unknown>) => {
 
 
 const CreateTestimonialIntoDB = async (
-  userId: string,
   payload: ITestimonial,
   files: TImageFiles,
 ) => {
 
-  const authorId = new mongoose.Types.ObjectId(userId);
   const { file } = files;
   const TestimonialData: ITestimonial = {
     ...payload,
-    author: authorId,
+
     images: file.map((image) => image.path),
   };
 

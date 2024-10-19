@@ -26,15 +26,11 @@ const getAllTechnologyFromDB = async (query: Record<string, unknown>) => {
 
 
 const CreateTechnologyIntoDB = async (
-  userId: string,
   payload: ITechnology,
 
 ) => {
 
-  const authorId = new mongoose.Types.ObjectId(userId);
-
   const result = await Technology.create(payload);
-
   return result;
 };
 
@@ -51,6 +47,11 @@ const updateTechnologyIntoDB = async (
   id: string,
   payload: Partial<ITechnology>,
 ) => {
+
+  const isTechnologyExists = await Technology.isTechnologyExists(id)
+  if (!isTechnologyExists) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Technology not found!')
+  }
 
   const result = await Technology.findByIdAndUpdate(id, payload, {
     new: true,

@@ -5,6 +5,7 @@ import httpStatus from 'http-status';
 import { CertificationSearchableFields } from './Certification.constant';
 import { Certification, } from './Certification.model';
 import { ICertification } from './Certification.interface';
+import { TImageFiles } from '../../interface/image.interface';
 
 
 const getAllCertificationFromDB = async (query: Record<string, unknown>) => {
@@ -26,14 +27,20 @@ const getAllCertificationFromDB = async (query: Record<string, unknown>) => {
 
 
 const CreateCertificationIntoDB = async (
-  userId: string,
   payload: ICertification,
-
+  files: TImageFiles
 ) => {
 
-  const authorId = new mongoose.Types.ObjectId(userId);
+  const { file } = files;
 
-  const result = await Certification.create(payload);
+  const CertificationData: ICertification = {
+    ...payload,
+
+    credentialUrl: file.map((image) => image.path),
+  };
+
+
+  const result = await Certification.create(CertificationData);
 
   return result;
 };
@@ -50,7 +57,19 @@ const getSingleCertificationFromDB = async (id: string) => {
 const updateCertificationIntoDB = async (
   id: string,
   payload: Partial<ICertification>,
+  files: TImageFiles,
 ) => {
+  const isCertificationExists = await Certification.isCertificationExists(id)
+  if (!isCertificationExists) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Certification not found!')
+  }
+
+  const { file } = files;
+
+  if (files.length) {
+    payload.credentialUrl = file.map((image) => image.path);
+  }
+
 
   const result = await Certification.findByIdAndUpdate(id, payload, {
     new: true,

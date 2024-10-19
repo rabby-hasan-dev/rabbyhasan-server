@@ -13,7 +13,7 @@ const ExperienceSchema: Schema<IExperience, ExperienceModel> = new Schema<IExper
   endDate: { type: Date },
   description: { type: String, required: true },
   technologiesUsed: [{ type: Schema.Types.ObjectId }],  // Array of technology names
-  isDeleted: [{ type: Boolean, default: false }],  // Array of technology names
+  isDeleted: { type: Boolean, default: false },  // Array of technology names
 
 }, {
   timestamps: true

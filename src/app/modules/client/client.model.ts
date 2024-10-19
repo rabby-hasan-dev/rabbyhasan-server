@@ -8,6 +8,7 @@ const ClientSchema: Schema<IClient, ClientModel> = new Schema<IClient, ClientMod
   website: { type: String },
   contactEmail: { type: String, required: true },
   projects: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
+  isDeleted: { type: Boolean, default: false }
 
 }, {
   timestamps: true

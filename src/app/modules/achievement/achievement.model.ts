@@ -8,7 +8,7 @@ const AchievementSchema: Schema<IAchievement, AchievementModel> = new Schema<IAc
   title: { type: String, required: true },
   description: { type: String, required: true },
   date: { type: Date, required: true },
-  imageUrl: { type: String },
+  imageUrl: [{ type: String }],
   isDeleted: { type: Boolean, default: false },
 
 });

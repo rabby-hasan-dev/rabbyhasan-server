@@ -8,6 +8,7 @@ import { TImageFiles } from '../../interface/image.interface';
 import { TestimonialsServices } from './testimonial.service';
 
 const createTestimonial = catchAsync(async (req, res) => {
+
   if (!req.files) {
     throw new AppError(httpStatus.BAD_REQUEST, 'Please upload an image!');
   }
@@ -15,9 +16,8 @@ const createTestimonial = catchAsync(async (req, res) => {
 
   const TestimonialData = req.body;
   const files = req.files;
-  const userId = req.user.userId;
   const result = await TestimonialsServices.CreateTestimonialIntoDB(
-    userId,
+
     TestimonialData,
     files as TImageFiles,
   );

@@ -10,7 +10,7 @@ import { AchievementSearchableFields } from './achievement.constant';
 
 
 const getAllAchievementFromDB = async (query: Record<string, unknown>) => {
-  const UserQuery = new QueryBuilder(Achievement.find().populate('author'), query)
+  const UserQuery = new QueryBuilder(Achievement.find(), query)
     .search(AchievementSearchableFields)
     .filter()
     .sort()
@@ -28,20 +28,19 @@ const getAllAchievementFromDB = async (query: Record<string, unknown>) => {
 
 
 const CreateAchievementIntoDB = async (
-  userId: string,
   payload: IAchievement,
   files: TImageFiles,
 ) => {
 
-  const authorId = new mongoose.Types.ObjectId(userId);
   const { file } = files;
-  const AchievementData: IAchievement = {
-    ...payload,
-    author: authorId,
-    images: file.map((image) => image.path),
-  };
 
-  const result = await Achievement.create(AchievementData);
+
+
+  if (files.length) {
+    payload.imageUrl = file.map((image) => image.path);
+  }
+
+  const result = await Achievement.create(payload);
 
   return result;
 };
@@ -58,21 +57,28 @@ const getAllAchievementByAuthorFromDB = async (id: string) => {
   return result;
 };
 
+
+
 const updateAchievementIntoDB = async (
   id: string,
   payload: Partial<IAchievement>,
   files: TImageFiles,
 ) => {
+  const isAchievementExists = await Achievement.isAchievementExists(id)
+  if (!isAchievementExists) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Achievement not found!')
+  }
   const { file } = files;
 
   if (files.length) {
-    payload.images = file.map((image) => image.path);
+    payload.imageUrl = file.map((image) => image.path);
   }
 
   const result = await Achievement.findByIdAndUpdate(id, payload, {
     new: true,
     runValidators: true,
   });
+
   return result;
 };
 

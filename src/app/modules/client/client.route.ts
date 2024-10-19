@@ -29,10 +29,12 @@ router.put(
   auth(USER_ROLE.user, USER_ROLE.admin),
   ClientControllers.updateClient,
 );
+
+
 router.delete(
   '/:clientId',
   auth(USER_ROLE.admin, USER_ROLE.user, USER_ROLE.superAdmin),
-  ClientControllers.updateClient,
+  ClientControllers.deleteClient,
 );
 
 

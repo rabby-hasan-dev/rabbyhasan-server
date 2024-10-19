@@ -27,6 +27,7 @@ export interface TUser {
   passwordChangedAt?: Date;
   role: UserRoleEnum;
   isVerified: boolean;
+  status: string;
   profilePicture: string;
   bio: string;
   phone: string;

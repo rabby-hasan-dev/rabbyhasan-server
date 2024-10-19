@@ -11,14 +11,14 @@ const router = express.Router();
 
 router.post(
   '/',
-  auth(USER_ROLE.user),
+  // auth(USER_ROLE.user),
   multerUpload.fields([{ name: 'file' }]),
   parseBody,
 
   AchievementControllers.createAchievement,
 );
 router.get('/',
-  auth(USER_ROLE.admin, USER_ROLE.user, USER_ROLE.superAdmin),
+  // auth(USER_ROLE.admin, USER_ROLE.user, USER_ROLE.superAdmin),
   AchievementControllers.getAllAchievements);
 
 router.get(
@@ -29,20 +29,20 @@ router.get(
 
 router.get(
   '/author/:userId',
-  auth(USER_ROLE.admin, USER_ROLE.user),
+  // auth(USER_ROLE.admin, USER_ROLE.user),
   AchievementControllers.getAllAchievementsByAuthor,
 );
 
 router.put(
   '/:projectId',
-  auth(USER_ROLE.user, USER_ROLE.admin),
+  // auth(USER_ROLE.user, USER_ROLE.admin),
   multerUpload.fields([{ name: 'file' }]),
   parseBody,
   AchievementControllers.updateAchievement,
 );
 router.delete(
   '/:projectId',
-  auth(USER_ROLE.admin, USER_ROLE.user, USER_ROLE.superAdmin),
+  // auth(USER_ROLE.admin, USER_ROLE.user, USER_ROLE.superAdmin),
   AchievementControllers.deleteAchievement,
 );
 

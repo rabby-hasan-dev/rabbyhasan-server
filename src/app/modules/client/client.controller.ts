@@ -10,12 +10,8 @@ import { ClientServices } from './client.service';
 const createClient = catchAsync(async (req, res) => {
 
   const ClientData = req.body;
-  const userId = req.user.userId;
-  const result = await ClientServices.CreateClientIntoDB(
-    userId,
-    ClientData,
 
-  );
+  const result = await ClientServices.CreateClientIntoDB(ClientData,);
 
 
   sendResponse(res, {
@@ -75,7 +71,10 @@ const updateClient = catchAsync(async (req, res) => {
 
 
 const deleteClient = catchAsync(async (req, res) => {
+
+
   const { clientId } = req.params;
+
   const result = await ClientServices.deleteClientFromDB(clientId);
 
   sendResponse(res, {

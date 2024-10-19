@@ -2,22 +2,13 @@ import { RequestHandler } from 'express';
 import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
-import AppError from '../../errors/AppError';
 import { technologyServices } from './technology.service';
 
 const createTechnologys = catchAsync(async (req, res) => {
-  if (!req.files) {
-    throw new AppError(httpStatus.BAD_REQUEST, 'Please upload an image!');
-  }
-
 
   const TechnologyData = req.body;
-  const userId = req.user.userId;
-  const result = await technologyServices.CreateTechnologyIntoDB(
-    userId,
-    TechnologyData,
 
-  );
+  const result = await technologyServices.CreateTechnologyIntoDB(TechnologyData);
 
 
   sendResponse(res, {

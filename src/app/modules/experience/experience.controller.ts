@@ -9,12 +9,7 @@ import { ExperienceServices } from './experience.service';
 const createExperience = catchAsync(async (req, res) => {
 
   const ExperienceData = req.body;
-  const userId = req.user.userId;
-  const result = await ExperienceServices.CreateExperienceIntoDB(
-    userId,
-    ExperienceData,
-
-  );
+  const result = await ExperienceServices.CreateExperienceIntoDB(ExperienceData);
 
 
   sendResponse(res, {

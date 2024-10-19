@@ -3,12 +3,15 @@ import { IProject, ProjectModel } from './projects.interface';
 
 
 const ProjectSchema = new Schema<IProject, ProjectModel>(
+
   {
     title: { type: String, required: true },
     description: { type: String, required: true },
-    technologies: { type: [String], required: true },
-    githubRepo: { type: String, required: true },
+    technologies: [{ type: Schema.Types.ObjectId, ref: 'Technology' }],
+    githubRepoClient: { type: String, required: true },
+    githubRepoServer: { type: String, required: true },
     liveDemo: { type: String },
+    category: { type: String, enum: ['Web Development', 'Mobile Development', 'Data Science', 'Other'], default: 'Web Development' }, // Enum for predefined categories
     author: { type: Schema.Types.ObjectId, ref: 'User' },
     images: [{
       type: String,
@@ -17,9 +20,12 @@ const ProjectSchema = new Schema<IProject, ProjectModel>(
     client: { type: Schema.Types.ObjectId, ref: 'Client' },
     startDate: { type: Date, required: true },
     endDate: { type: Date },
-    tags: { type: [String], default: [] },
+    tags: { type: [String], default: [] },// Custom tags for easier filtering (optional)
     isFeatured: { type: Boolean, default: false },
-    isDeleted: { type: Boolean, default: false }
+    isDeleted: { type: Boolean, default: false },
+    testimonials: [{ type: Schema.Types.ObjectId, ref: 'Testimonials' }],
+    views: { type: Number, default: 0 },  // Track the number of views for each project
+    collaborators: [{ type: Schema.Types.ObjectId, ref: 'User' }],  // List of collaborators
   },
   {
     timestamps: true,

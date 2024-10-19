@@ -26,12 +26,10 @@ const getAllExperienceFromDB = async (query: Record<string, unknown>) => {
 
 
 const CreateExperienceIntoDB = async (
-  userId: string,
   payload: IExperience,
 
 ) => {
 
-  const authorId = new mongoose.Types.ObjectId(userId);
 
   const result = await Experience.create(payload);
 

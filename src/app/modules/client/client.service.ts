@@ -26,15 +26,10 @@ const getAllClientFromDB = async (query: Record<string, unknown>) => {
 
 
 const CreateClientIntoDB = async (
-  userId: string,
   payload: IClient,
 
 ) => {
-
-  const authorId = new mongoose.Types.ObjectId(userId);
-
   const result = await Client.create(payload);
-
   return result;
 };
 

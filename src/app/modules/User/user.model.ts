@@ -31,6 +31,7 @@ const userSchema = new Schema<TUser, UserModel>(
     passwordChangedAt: { type: Date },
     role: { type: String, enum: UserRoleEnum, default: UserRoleEnum.USER, required: true },
     isVerified: { type: Boolean, default: false },
+    status: { type: String },
     profilePicture: { type: String, },
     phone: { type: String, },
     address: { type: String, },

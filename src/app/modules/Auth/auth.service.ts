@@ -31,7 +31,6 @@ const signUpUserIntoDB = async (file: TImageFile, payload: TUser) => {
   const jwtPayload = {
     userId: newUser?._id,
     name: newUser?.name,
-    username: newUser?.username,
     email: newUser?.email,
     role: newUser?.role,
     profilePicture: newUser?.profilePicture,
@@ -93,7 +92,6 @@ const loginUser = async (payload: TLoginUser) => {
 
     userId: user?._id,
     name: user?.name,
-    username: user.username,
     email: user?.email,
     role: user?.role,
     profilePicture: user?.profilePicture,
@@ -210,7 +208,6 @@ const refreshToken = async (token: string) => {
   const jwtPayload = {
     userId: user?._id,
     name: user?.name,
-    username: user.username,
     email: user?.email,
     role: user?.role,
     profilePicture: user?.profilePicture,
@@ -253,7 +250,6 @@ const forgetPassword = async (userEmail: string) => {
   const jwtPayload = {
     userId: user?._id,
     name: user?.name,
-    username: user.username,
     email: user?.email,
     role: user?.role,
     profilePicture: user?.profilePicture,

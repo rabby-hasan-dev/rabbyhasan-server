@@ -16,9 +16,8 @@ const createAchievement = catchAsync(async (req, res) => {
 
   const AchievementData = req.body;
   const files = req.files;
-  const userId = req.user.userId;
+
   const result = await AchievementsServices.CreateAchievementIntoDB(
-    userId,
     AchievementData,
     files as TImageFiles,
   );
