@@ -11,14 +11,14 @@ const router = express.Router();
 
 router.post(
   '/',
-  auth(USER_ROLE.user),
+  auth(USER_ROLE.USER),
   multerUpload.fields([{ name: 'file' }]),
   parseBody,
   validateRequest(certificationValidationSchema.CertificationSchema),
   CertificationControllers.createCertifications,
 );
 router.get('/',
-  auth(USER_ROLE.admin, USER_ROLE.user, USER_ROLE.superAdmin),
+  auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
   CertificationControllers.getAllCertificationss);
 
 router.get(
@@ -30,7 +30,7 @@ router.get(
 
 router.put(
   '/:certificationId',
-  auth(USER_ROLE.user, USER_ROLE.admin),
+  auth(USER_ROLE.USER, USER_ROLE.ADMIN),
   multerUpload.fields([{ name: 'file' }]),
   parseBody,
   validateRequest(certificationValidationSchema.UpdateCertificationSchema),
@@ -38,7 +38,7 @@ router.put(
 );
 router.delete(
   '/:certificationId',
-  auth(USER_ROLE.admin, USER_ROLE.user, USER_ROLE.superAdmin),
+  auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
   CertificationControllers.deleteCertifications,
 );
 

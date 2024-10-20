@@ -10,6 +10,7 @@ const createProjects = catchAsync(async (req, res) => {
 
 
   if (!req.files) {
+    console.log(req.files);
     throw new AppError(httpStatus.BAD_REQUEST, 'Please upload an image!');
   }
 

@@ -11,12 +11,12 @@ const router = express.Router();
 
 router.post(
   '/',
-  auth(USER_ROLE.user),
+  auth(USER_ROLE.USER),
   validateRequest(clientValidationSchema.ClientSchema),
   ClientControllers.createClient,
 );
 router.get('/',
-  auth(USER_ROLE.admin, USER_ROLE.user, USER_ROLE.superAdmin),
+  auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
   ClientControllers.getAllClients);
 
 router.get(
@@ -28,7 +28,7 @@ router.get(
 
 router.put(
   '/:clientId',
-  auth(USER_ROLE.user, USER_ROLE.admin),
+  auth(USER_ROLE.USER, USER_ROLE.ADMIN),
   validateRequest(clientValidationSchema.UpdateClientSchema),
   ClientControllers.updateClient,
 );
@@ -36,7 +36,7 @@ router.put(
 
 router.delete(
   '/:clientId',
-  auth(USER_ROLE.admin, USER_ROLE.user, USER_ROLE.superAdmin),
+  auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
   ClientControllers.deleteClient,
 );
 

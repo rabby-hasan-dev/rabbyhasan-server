@@ -71,6 +71,19 @@ const getSingleUserFromDB = async (id: string) => {
 
 
 
+const delteUserFromDB = async (id: string) => {
+
+  const result = await User.findByIdAndUpdate(id, {
+    isDeleted: true
+  }, {
+    new: true
+  });
+
+  return result;
+};
+
+
+
 const getAllUsersFromDB = async (query: Record<string, unknown>) => {
   const UserQuery = new QueryBuilder(User.find(), query)
     .search(UserSearchableFields)
@@ -99,6 +112,7 @@ export const UserServices = {
   getMyProfileIntoDB,
   getAllUsersFromDB,
   getSingleUserFromDB,
+  delteUserFromDB
 
 };
 

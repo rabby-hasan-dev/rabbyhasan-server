@@ -12,14 +12,14 @@ const router = express.Router();
 
 router.post(
   '/',
-  auth(USER_ROLE.user),
+  auth(USER_ROLE.USER),
   multerUpload.fields([{ name: 'file' }]),
   parseBody,
   validateRequest(projectValidationSchema.ProjectSchema),
   ProjectsControllers.createProjects,
 );
 router.get('/',
-  auth(USER_ROLE.admin, USER_ROLE.user, USER_ROLE.superAdmin),
+  auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
   ProjectsControllers.getAllProjectss);
 
 router.get(
@@ -30,13 +30,13 @@ router.get(
 
 router.get(
   '/author/:userId',
-  auth(USER_ROLE.admin, USER_ROLE.user),
+  auth(USER_ROLE.ADMIN, USER_ROLE.USER),
   ProjectsControllers.getAllProjectssByAuthor,
 );
 
 router.put(
   '/:projectId',
-  auth(USER_ROLE.user, USER_ROLE.admin),
+  auth(USER_ROLE.USER, USER_ROLE.ADMIN),
   multerUpload.fields([{ name: 'file' }]),
   parseBody,
   validateRequest(projectValidationSchema.UpdateProjectSchema),
@@ -44,7 +44,7 @@ router.put(
 );
 router.delete(
   '/:projectId',
-  auth(USER_ROLE.admin, USER_ROLE.user, USER_ROLE.superAdmin),
+  auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
   ProjectsControllers.deleteProjects,
 );
 

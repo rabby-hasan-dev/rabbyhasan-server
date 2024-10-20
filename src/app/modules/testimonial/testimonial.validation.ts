@@ -9,7 +9,7 @@ const TestimonialSchema = z.object({
         position: z.string().min(1, "Position is required"), // Required string
         company: z.string().optional(), // Optional string for company
         message: z.string().min(1, "Message is required"), // Required string
-        images: z.array(z.string().min(1, "Image is required")).nonempty("At least one image is required"), // Required array of image URLs
+
     })
 
 });
@@ -21,7 +21,7 @@ const UpdateTestimonialSchema = z.object({
         position: z.string().min(1, "Position is required").optional(),
         company: z.string().optional(),
         message: z.string().min(1, "Message is required").optional(),
-        images: z.array(z.string().min(1, "Image is required")).nonempty("At least one image is required").optional(),
+
     })
 
 });

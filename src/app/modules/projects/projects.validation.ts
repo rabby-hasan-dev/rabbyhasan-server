@@ -12,8 +12,8 @@ const ProjectSchema = z.object({
         category: z.enum(['Web Development', 'Mobile Development', 'Data Science', 'Other']).default('Web Development'), // Enum for predefined categories
         author: z.string().optional(), // Optional ObjectId (User)
         client: z.string().optional(), // Optional ObjectId (Client)
-        startDate: z.date({ required_error: "Start date is required" }), // Required date
-        endDate: z.date().optional(), // Optional date
+        startDate: z.string({ required_error: "Start date is required" }), // Required date
+        endDate: z.string().optional(), // Optional date
         tags: z.array(z.string()).optional(), // Optional array of custom tags
         testimonials: z.array(z.string()).optional(), // Optional array of ObjectId (Testimonials)
         views: z.number().default(0), // Default number value for views
@@ -33,8 +33,8 @@ const UpdateProjectSchema = z.object({
         category: z.enum(['Web Development', 'Mobile Development', 'Data Science', 'Other']).optional(),
         author: z.string().optional(),
         client: z.string().optional(),
-        startDate: z.date({ required_error: "Start date is required" }).optional(),
-        endDate: z.date().optional(),
+        startDate: z.string({ required_error: "Start date is required" }).optional(),
+        endDate: z.string().optional(),
         tags: z.array(z.string()).optional(),
         testimonials: z.array(z.string()).optional(),
         views: z.number().optional(),

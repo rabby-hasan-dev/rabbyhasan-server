@@ -2,9 +2,9 @@ import { Model, Types } from 'mongoose';
 import { USER_ROLE } from '../../constant';
 
 export enum UserRoleEnum {
-  SUPER_ADMIN = 'superAdmin',
-  ADMIN = 'admin',
-  USER = 'user',
+  SUPER_ADMIN = 'SUPER_ADMIN',
+  ADMIN = 'ADMIN',
+  USER = 'USER',
 }
 
 export enum UserStatusEnum {

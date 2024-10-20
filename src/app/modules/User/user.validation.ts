@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 
 // Define enums
-const UserRoleEnum = z.enum(['USER', 'ADMIN', 'SUPERADMIN']);
+const UserRoleEnum = z.enum(['USER', 'ADMIN', 'SUPER_ADMIN']);
 
 // Name Schema
 const userNameSchema = z.object({
