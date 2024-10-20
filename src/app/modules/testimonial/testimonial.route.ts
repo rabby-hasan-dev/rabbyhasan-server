@@ -4,6 +4,8 @@ import { USER_ROLE } from '../../constant';
 import { multerUpload } from '../../config/multer.config';
 import { parseBody } from '../../middlewares/bodyparser';
 import { TestimonialControllers } from './testimonial.controller';
+import validateRequest from '../../middlewares/validateRequest';
+import { testimonialValidationSchema } from './testimonial.validation';
 
 const router = express.Router();
 
@@ -12,7 +14,7 @@ router.post(
   auth(USER_ROLE.user),
   multerUpload.fields([{ name: 'file' }]),
   parseBody,
-
+  validateRequest(testimonialValidationSchema.TestimonialSchema),
   TestimonialControllers.createTestimonial,
 );
 router.get('/',
@@ -36,6 +38,7 @@ router.put(
   auth(USER_ROLE.user, USER_ROLE.admin),
   multerUpload.fields([{ name: 'file' }]),
   parseBody,
+  validateRequest(testimonialValidationSchema.UpdateTestimonialSchema),
   TestimonialControllers.updateTestimonial,
 );
 router.delete(

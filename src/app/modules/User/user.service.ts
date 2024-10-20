@@ -47,13 +47,14 @@ const updateUserDataIntoDB = async (
 
 
   try {
+
     const result = await User.findOneAndUpdate(
       { email: email },
       modifiedUpdatedData,
       { new: true }
     );
 
-    // return result;
+    return result;
   } catch (err) {
     console.error("Update error:", err); // Catch and log any errors
   }
@@ -69,7 +70,6 @@ const getSingleUserFromDB = async (id: string) => {
 };
 
 
-// { status: !UserStatus.BLOCKED }
 
 const getAllUsersFromDB = async (query: Record<string, unknown>) => {
   const UserQuery = new QueryBuilder(User.find(), query)

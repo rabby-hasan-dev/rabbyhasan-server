@@ -1,4 +1,4 @@
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 
 // Define Testimonial Interface
 export interface ITestimonial {
@@ -7,8 +7,10 @@ export interface ITestimonial {
   company?: string;  // Optional, company name of the person
   message: string;  // The testimonial message
   images?: string[];  // Optional, picture of the person giving the testimonial
-  isDeleted: Boolean;
+  isDeleted: boolean;
 }
+
+
 
 export interface TestimonialModel extends Model<ITestimonial> {
   isTestimonialExists(id: string): Promise<ITestimonial | null>;

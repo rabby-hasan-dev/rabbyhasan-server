@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+
 import QueryBuilder from '../../builder/QueryBuilder';
 import { TImageFiles } from '../../interface/image.interface';
 import AppError from '../../errors/AppError';

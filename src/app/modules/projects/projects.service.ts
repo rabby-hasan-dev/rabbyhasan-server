@@ -39,7 +39,7 @@ const CreateProjectIntoDB = async (
     images: file.map((image) => image.path),
   };
 
-  console.log(payload)
+
   const result = await Project.create(ProjectData);
 
   return result;

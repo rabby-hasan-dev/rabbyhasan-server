@@ -1,71 +1,67 @@
 import { z } from 'zod';
 
+
+// Define enums
+const UserRoleEnum = z.enum(['USER', 'ADMIN', 'SUPERADMIN']);
+
+// Name Schema
 const userNameSchema = z.object({
   firstName: z
     .string()
-    .min(1, 'First Name is required')
-    .max(20, 'Name cannot be more than 20 characters')
-    .trim(),
+    .trim()
+    .max(20, 'Name cannot be more than 20 characters'),
   lastName: z
     .string()
-    .min(1, 'Last Name is required')
-    .max(20, 'Name cannot be more than 20 characters')
-    .trim(),
+    .trim()
+    .max(20, 'Name cannot be more than 20 characters'),
 });
 
-const userUpdateNameSchema = z.object({
-  firstName: z
-    .string()
-    .min(1, 'First Name is required')
-    .max(20, 'Name cannot be more than 20 characters')
-    .trim().optional(),
-  lastName: z
-    .string()
-    .min(1, 'Last Name is required')
-    .max(20, 'Name cannot be more than 20 characters')
-    .trim().optional(),
-});
-
-
+// Main User Schema
 const userValidationSchema = z.object({
   body: z.object({
+    name: userNameSchema,
     email: z
       .string()
-      .email('Invalid email format')
-      .min(1, 'Email is required')
-      .trim(),
+      .email('Invalid email address')
+      .trim()
+      .toLowerCase(),
     password: z
       .string()
-      .min(1, 'Password is required')
-      .max(20, { message: 'Password can not be more than 20 characters' })
-      .trim()
-      .optional(),
-  }),
+      .min(6, 'Password must be at least 6 characters'),
+
+    role: UserRoleEnum.default('USER'),
+    status: z.string().optional(),
+  })
+
+
 });
 
 
 
+
+
+
+// update Main User Schema
 const userUpdateValidationSchema = z.object({
   body: z.object({
-    name: userUpdateNameSchema.optional(),
-    bio: z.string().optional(),
+    name: userNameSchema.optional(),
+    bio: z.string().trim().optional(),
+    role: UserRoleEnum.optional(),
+    status: z.string().optional(),
     phone: z.string().optional(),
     address: z.string().optional(),
-  }),
+    projects: z.array(z.string()).optional(),
+    experience: z.array(z.string()).optional(),
+    technologies: z.array(z.string()).optional(),
+
+  })
+
 });
 
 
-const changeStatusValidationSchema = z.object({
-  body: z.object({
-    status: z.enum(['in-progress', 'active', 'blocked'] as [
-      string,
-      ...string[],
-    ]),
-  }),
-});
+
 
 export const UserValidation = {
   userValidationSchema,
-  changeStatusValidationSchema,
   userUpdateValidationSchema,
 };

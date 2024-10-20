@@ -4,6 +4,8 @@ import { USER_ROLE } from '../../constant';
 import { CertificationControllers } from './Certification.controller';
 import { multerUpload } from '../../config/multer.config';
 import { parseBody } from '../../middlewares/bodyparser';
+import validateRequest from '../../middlewares/validateRequest';
+import { certificationValidationSchema } from './Certification.validation';
 
 const router = express.Router();
 
@@ -12,7 +14,7 @@ router.post(
   auth(USER_ROLE.user),
   multerUpload.fields([{ name: 'file' }]),
   parseBody,
-
+  validateRequest(certificationValidationSchema.CertificationSchema),
   CertificationControllers.createCertifications,
 );
 router.get('/',
@@ -31,6 +33,7 @@ router.put(
   auth(USER_ROLE.user, USER_ROLE.admin),
   multerUpload.fields([{ name: 'file' }]),
   parseBody,
+  validateRequest(certificationValidationSchema.UpdateCertificationSchema),
   CertificationControllers.updateCertifications,
 );
 router.delete(

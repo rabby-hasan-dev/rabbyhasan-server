@@ -5,6 +5,8 @@ import { USER_ROLE } from '../../constant';
 import { multerUpload } from '../../config/multer.config';
 import { parseBody } from '../../middlewares/bodyparser';
 import { ProjectsControllers } from './projects.controller';
+import validateRequest from '../../middlewares/validateRequest';
+import { projectValidationSchema } from './projects.validation';
 
 const router = express.Router();
 
@@ -13,7 +15,7 @@ router.post(
   auth(USER_ROLE.user),
   multerUpload.fields([{ name: 'file' }]),
   parseBody,
-
+  validateRequest(projectValidationSchema.ProjectSchema),
   ProjectsControllers.createProjects,
 );
 router.get('/',
@@ -37,6 +39,7 @@ router.put(
   auth(USER_ROLE.user, USER_ROLE.admin),
   multerUpload.fields([{ name: 'file' }]),
   parseBody,
+  validateRequest(projectValidationSchema.UpdateProjectSchema),
   ProjectsControllers.updateProjects,
 );
 router.delete(
