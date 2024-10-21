@@ -14,6 +14,8 @@ export interface IProject {
   testimonials: Types.ObjectId[];
   startDate: Date;
   endDate?: Date;
+  upvote: number;
+  downvote: number;
   tags: string[];
   collaborators: Types.ObjectId;
   views: number;

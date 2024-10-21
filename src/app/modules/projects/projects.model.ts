@@ -20,6 +20,8 @@ const ProjectSchema = new Schema<IProject, ProjectModel>(
     client: { type: Schema.Types.ObjectId, ref: 'Client' },
     startDate: { type: Date, required: true },
     endDate: { type: Date },
+    upvote: { type: Number, default: 0 },
+    downvote: { type: Number, default: 0 },
     tags: { type: [String], default: [] },// Custom tags for easier filtering (optional)
     isFeatured: { type: Boolean, default: false },
     isDeleted: { type: Boolean, default: false },
