@@ -9,6 +9,7 @@ import { AchievementRoutes } from '../modules/achievement/achievement.route';
 import { CertificationRoutes } from '../modules/Certification/Certification.route';
 import { ProjectRoutes } from '../modules/projects/projects.route';
 import { SocailConectivityRoutes } from '../modules/social/social.route';
+import { BlogRoutes } from '../modules/Blogs/blog.route';
 
 const router = Router();
 
@@ -52,6 +53,10 @@ const moduleRoutes = [
   {
     path: '/social',
     route: SocailConectivityRoutes,
+  },
+  {
+    path: '/blogs',
+    route: BlogRoutes,
   },
 ];
 

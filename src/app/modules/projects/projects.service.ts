@@ -8,7 +8,13 @@ import { Project } from './projects.model';
 import { IProject } from './projects.interface';
 
 const getAllProjectFromDB = async (query: Record<string, unknown>) => {
-  const UserQuery = new QueryBuilder(Project.find().populate('author'), query)
+  const UserQuery = new QueryBuilder(Project.find()
+    .populate('technologies')
+    .populate('author')
+    .populate('client')
+    .populate('testimonials')
+    .populate('collaborators')
+    , query)
     .search(projectSearchableFields)
     .filter()
     .sort()
@@ -50,7 +56,13 @@ const CreateProjectIntoDB = async (
 
 const getSingleProjectFromDB = async (id: string) => {
 
-  const result = await Project.findById(id);
+  const result = await Project.findById(id)
+    .populate('technologies')
+    .populate('author')
+    .populate('client')
+    .populate('testimonials')
+    .populate('collaborators')
+    .exec();
   return result;
 };
 

@@ -4,9 +4,11 @@ import auth from '../../middlewares/auth';
 import { USER_ROLE } from '../../constant';
 import { multerUpload } from '../../config/multer.config';
 import { parseBody } from '../../middlewares/bodyparser';
-import { ProjectsControllers } from './projects.controller';
+
 import validateRequest from '../../middlewares/validateRequest';
-import { projectValidationSchema } from './projects.validation';
+import { BlogValidationSchema } from './blog.validation';
+import { BlogsControllers } from './blog.controller';
+
 
 const router = express.Router();
 
@@ -15,38 +17,38 @@ router.post(
   auth(USER_ROLE.USER),
   multerUpload.fields([{ name: 'file' }]),
   parseBody,
-  validateRequest(projectValidationSchema.ProjectSchema),
-  ProjectsControllers.createProjects,
+  validateRequest(BlogValidationSchema.BlogSchema),
+  BlogsControllers.createBlogs,
 );
 router.get('/',
   // auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
-  ProjectsControllers.getAllProjectss);
+  BlogsControllers.getAllBlogss);
 
 router.get(
-  '/:projectId',
+  '/:blogId',
 
-  ProjectsControllers.getSingleProject,
+  BlogsControllers.getSingleBlog,
 );
 
 router.get(
   '/author/:userId',
   auth(USER_ROLE.ADMIN, USER_ROLE.USER),
-  ProjectsControllers.getAllProjectssByAuthor,
+  BlogsControllers.getAllBlogssByAuthor,
 );
 
 router.put(
-  '/:projectId',
-  auth(USER_ROLE.USER, USER_ROLE.ADMIN),
+  '/:blogId',
+  // auth(USER_ROLE.USER, USER_ROLE.ADMIN),
   multerUpload.fields([{ name: 'file' }]),
   parseBody,
-  validateRequest(projectValidationSchema.UpdateProjectSchema),
-  ProjectsControllers.updateProjects,
+  validateRequest(BlogValidationSchema.UpdateBlogSchema),
+  BlogsControllers.updateBlogs,
 );
 router.delete(
-  '/:projectId',
-  auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
-  ProjectsControllers.deleteProjects,
+  '/:blogId',
+  // auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
+  BlogsControllers.deleteBlogs,
 );
 
 
-export const ProjectRoutes = router;
+export const BlogRoutes = router;

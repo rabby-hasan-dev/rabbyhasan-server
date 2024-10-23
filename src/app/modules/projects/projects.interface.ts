@@ -19,7 +19,7 @@ export interface IProject {
   tags: string[];
   collaborators: Types.ObjectId;
   views: number;
-  isFeatured: boolean;
+  features: string[];
   isDeleted: boolean
 }
 

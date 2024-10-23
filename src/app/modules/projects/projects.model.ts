@@ -23,9 +23,9 @@ const ProjectSchema = new Schema<IProject, ProjectModel>(
     upvote: { type: Number, default: 0 },
     downvote: { type: Number, default: 0 },
     tags: { type: [String], default: [] },// Custom tags for easier filtering (optional)
-    isFeatured: { type: Boolean, default: false },
+    features: [{ type: String }],
     isDeleted: { type: Boolean, default: false },
-    testimonials: [{ type: Schema.Types.ObjectId, ref: 'Testimonials' }],
+    testimonials: [{ type: Schema.Types.ObjectId, ref: 'Testimonial' }],
     views: { type: Number, default: 0 },  // Track the number of views for each project
     collaborators: [{ type: Schema.Types.ObjectId, ref: 'User' }],  // List of collaborators
   },
