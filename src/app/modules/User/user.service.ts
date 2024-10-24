@@ -11,7 +11,7 @@ import { UserSearchableFields } from './user.constant';
 
 const getMyProfileIntoDB = async (email: string, role: string) => {
   let result = null;
-  if (role === USER_ROLE.user || role === USER_ROLE.admin || role === USER_ROLE.admin) {
+  if (role === USER_ROLE.USER || role === USER_ROLE.ADMIN || role === USER_ROLE.SUPER_ADMIN) {
     result = await User.findOne({ email: email });
   }
   return result;
@@ -32,6 +32,10 @@ const updateUserDataIntoDB = async (
   if (file?.path) {
     payload.profilePicture = file.path;
   }
+
+
+
+
 
   const { name, ...remainingUserData } = payload;
   const modifiedUpdatedData: Record<string, unknown> = {

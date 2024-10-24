@@ -8,6 +8,7 @@ import {
   UserRoleEnum,
 } from './user.interface';
 
+
 const userNameSchema = new Schema<TUserName>({
   firstName: {
     type: String,
@@ -35,9 +36,10 @@ const userSchema = new Schema<TUser, UserModel>(
     profilePicture: { type: String, },
     phone: { type: String, },
     address: { type: String, },
-    projects: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
-    experience: [{ type: Schema.Types.ObjectId, ref: 'Experience' }],
-    technologies: [{ type: Schema.Types.ObjectId, ref: 'Technology' }],
+    socialLinks: [{
+      platform: { type: String, trim: true },
+      url: { type: String, trim: true },
+    }],
     isDeleted: { type: Boolean, default: false },
   },
   {

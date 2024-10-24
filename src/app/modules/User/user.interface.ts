@@ -18,6 +18,12 @@ export type TUserName = {
   lastName: string;
 };
 
+
+type TSocialLink = {
+  platform: string;
+  url: string;
+}
+
 export interface TUser {
   _id?: Types.ObjectId | String;
   name?: TUserName;
@@ -32,13 +38,7 @@ export interface TUser {
   bio: string;
   phone: string;
   address: string;
-  website?: string;
-  linkedIn?: string;
-  github?: string;
-  profilePictureUrl?: string;
-  projects: Types.ObjectId[];  // Reference to Project model
-  experience: Types.ObjectId[];  // Reference to Experience model
-  technologies: Types.ObjectId[];  // Reference to Technology model
+  socialLinks: TSocialLink[]
   isDeleted: boolean;
 }
 

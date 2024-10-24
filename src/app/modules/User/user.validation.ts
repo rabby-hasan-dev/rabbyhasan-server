@@ -16,6 +16,12 @@ const userNameSchema = z.object({
     .max(20, 'Name cannot be more than 20 characters'),
 });
 
+const socialLinkSchema = z.object({
+  platform: z.string().trim().min(1, 'Platform is required'),
+  url: z.string().trim().url('Invalid URL format'),
+});
+
+
 // Main User Schema
 const userValidationSchema = z.object({
   body: z.object({
@@ -50,9 +56,7 @@ const userUpdateValidationSchema = z.object({
     status: z.string().optional(),
     phone: z.string().optional(),
     address: z.string().optional(),
-    projects: z.array(z.string()).optional(),
-    experience: z.array(z.string()).optional(),
-    technologies: z.array(z.string()).optional(),
+    socialLinks: z.array(socialLinkSchema).optional(),
 
   })
 
