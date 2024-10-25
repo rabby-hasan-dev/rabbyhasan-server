@@ -1,6 +1,5 @@
 import { Model } from 'mongoose';
 
-
 // Define Technology Interface
 export interface ITechnology {
   name: string;
@@ -15,11 +14,9 @@ export interface ITechnology {
   projectsCompleted: number;
   projectLinks: string[];
   isDeleted: boolean;
-
 }
 
-
-
 export interface TechnologyModel extends Model<ITechnology> {
+  // eslint-disable-next-line no-unused-vars
   isTechnologyExists(id: string): Promise<ITechnology | null>;
 }

@@ -1,4 +1,3 @@
-
 import QueryBuilder from '../../builder/QueryBuilder';
 import { TImageFiles } from '../../interface/image.interface';
 import AppError from '../../errors/AppError';
@@ -6,7 +5,6 @@ import httpStatus from 'http-status';
 import { Testimonial } from './testimonial.model';
 import { ITestimonial } from './testimonial.interface';
 import { TestimonialSearchableFields } from './testimonial.constant';
-
 
 const getAllTestimonialFromDB = async (query: Record<string, unknown>) => {
   const UserQuery = new QueryBuilder(Testimonial.find(), query)
@@ -25,12 +23,10 @@ const getAllTestimonialFromDB = async (query: Record<string, unknown>) => {
   };
 };
 
-
 const CreateTestimonialIntoDB = async (
   payload: ITestimonial,
   files: TImageFiles,
 ) => {
-
   const { file } = files;
   const TestimonialData: ITestimonial = {
     ...payload,
@@ -43,15 +39,16 @@ const CreateTestimonialIntoDB = async (
   return result;
 };
 
-
 const getSingleTestimonialFromDB = async (id: string) => {
-
   const result = await Testimonial.findById(id);
   return result;
 };
 
 const getAllTestimonialByAuthorFromDB = async (id: string) => {
-  const result = await Testimonial.find({ author: id, isDeleted: false }).populate('author');
+  const result = await Testimonial.find({
+    author: id,
+    isDeleted: false,
+  }).populate('author');
   return result;
 };
 
@@ -74,10 +71,9 @@ const updateTestimonialIntoDB = async (
 };
 
 const deleteTestimonialFromDB = async (id: string) => {
-
-  const isTestimonialExists = await Testimonial.isTestimonialExists(id)
+  const isTestimonialExists = await Testimonial.isTestimonialExists(id);
   if (!isTestimonialExists) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Testimonial not found!')
+    throw new AppError(httpStatus.NOT_FOUND, 'Testimonial not found!');
   }
   const result = await Testimonial.findByIdAndUpdate(
     id,
@@ -96,5 +92,5 @@ export const TestimonialsServices = {
   getSingleTestimonialFromDB,
   updateTestimonialIntoDB,
   deleteTestimonialFromDB,
-  getAllTestimonialByAuthorFromDB
+  getAllTestimonialByAuthorFromDB,
 };

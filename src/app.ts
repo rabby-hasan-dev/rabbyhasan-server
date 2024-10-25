@@ -6,6 +6,7 @@ import notFound from './app/middlewares/notFound';
 import router from './app/routes';
 
 const app: Application = express();
+// const io = socketIo(app);
 
 //parsers
 app.use(express.json());
@@ -21,9 +22,18 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Welcome to My Portfolio Backend World');
 });
 
+app.use(async (req, res, next) => {
+  // console.log(req);
+
+  next();
+});
+
 app.use(globalErrorHandler);
 
 //Not Found
 app.use(notFound);
+
+// Setup Socket.IO
+// socketHandler(io);
 
 export default app;

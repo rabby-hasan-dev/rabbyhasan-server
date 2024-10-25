@@ -17,16 +17,17 @@ router.post(
   validateRequest(certificationValidationSchema.CertificationSchema),
   CertificationControllers.createCertifications,
 );
-router.get('/',
+router.get(
+  '/',
   auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
-  CertificationControllers.getAllCertificationss);
+  CertificationControllers.getAllCertificationss,
+);
 
 router.get(
   '/:certificationId',
 
   CertificationControllers.getSingleCertification,
 );
-
 
 router.put(
   '/:certificationId',
@@ -41,6 +42,5 @@ router.delete(
   auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
   CertificationControllers.deleteCertifications,
 );
-
 
 export const CertificationRoutes = router;

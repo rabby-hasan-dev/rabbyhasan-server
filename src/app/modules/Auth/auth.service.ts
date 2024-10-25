@@ -10,15 +10,12 @@ import { sendEmail } from '../../utils/sendEmail';
 import { TUser } from '../User/user.interface';
 import { TImageFile } from '../../interface/image.interface';
 
-
 const signUpUserIntoDB = async (file: TImageFile, payload: TUser) => {
-
   // checking if the user is exist
-  const user = await User.isUserExistsByEmail(payload?.email)
+  const user = await User.isUserExistsByEmail(payload?.email);
   if (user) {
     throw new AppError(httpStatus.NOT_FOUND, 'This user is already exist!');
   }
-
 
   const userData: TUser = {
     ...payload,
@@ -35,27 +32,25 @@ const signUpUserIntoDB = async (file: TImageFile, payload: TUser) => {
     role: newUser?.role,
     profilePicture: newUser?.profilePicture,
     status: newUser?.status,
-    phoneNumber: newUser?.phone
+    phoneNumber: newUser?.phone,
   };
 
   const accessToken = createToken(
     jwtPayload,
     config.jwt_access_secret as string,
-    config.jwt_access_expires_in as string
+    config.jwt_access_expires_in as string,
   );
 
   const refreshToken = createToken(
     jwtPayload,
     config.jwt_refresh_secret as string,
-    config.jwt_refresh_expires_in as string
+    config.jwt_refresh_expires_in as string,
   );
 
   return {
     accessToken,
     refreshToken,
   };
-
-
 };
 
 const loginUser = async (payload: TLoginUser) => {
@@ -89,14 +84,13 @@ const loginUser = async (payload: TLoginUser) => {
   //create token and sent to the  client
 
   const jwtPayload = {
-
     userId: user?._id,
     name: user?.name,
     email: user?.email,
     role: user?.role,
     profilePicture: user?.profilePicture,
     status: user?.status,
-    phoneNumber: user?.phone
+    phoneNumber: user?.phone,
   };
 
   const accessToken = createToken(
@@ -110,8 +104,6 @@ const loginUser = async (payload: TLoginUser) => {
     config.jwt_refresh_secret as string,
     config.jwt_refresh_expires_in as string,
   );
-
-
 
   return {
     accessToken,
@@ -212,7 +204,7 @@ const refreshToken = async (token: string) => {
     role: user?.role,
     profilePicture: user?.profilePicture,
     status: user?.status,
-    phoneNumber: user?.phone
+    phoneNumber: user?.phone,
   };
 
   const accessToken = createToken(
@@ -254,7 +246,7 @@ const forgetPassword = async (userEmail: string) => {
     role: user?.role,
     profilePicture: user?.profilePicture,
     status: user?.status,
-    phoneNumber: user?.phone
+    phoneNumber: user?.phone,
   };
   const resetToken = createToken(
     jwtPayload,
@@ -265,8 +257,6 @@ const forgetPassword = async (userEmail: string) => {
   const resetUILink = `${config.reset_pass_ui_link}/reset-password?email=${user.email}&token=${resetToken} `;
 
   await sendEmail(user.email, resetUILink);
-
-
 };
 
 const resetPassword = async (
@@ -297,8 +287,6 @@ const resetPassword = async (
     token,
     config.jwt_access_secret as string,
   ) as JwtPayload;
-
-
 
   if (payload.email !== decoded.email) {
     throw new AppError(httpStatus.FORBIDDEN, 'You are forbidden!');

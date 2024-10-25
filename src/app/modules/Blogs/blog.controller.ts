@@ -8,13 +8,9 @@ import { TImageFiles } from '../../interface/image.interface';
 import { BlogsServices } from './blog.service';
 
 const createBlogs = catchAsync(async (req, res) => {
-
-
   if (!req.files) {
-    console.log(req.files);
     throw new AppError(httpStatus.BAD_REQUEST, 'Please upload an image!');
   }
-
 
   const BlogData = req.body;
   const files = req.files;
@@ -25,7 +21,6 @@ const createBlogs = catchAsync(async (req, res) => {
     files as TImageFiles,
   );
 
-
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -33,8 +28,6 @@ const createBlogs = catchAsync(async (req, res) => {
     data: result,
   });
 });
-
-
 
 const getSingleBlog = catchAsync(async (req, res) => {
   const { blogId } = req.params;
@@ -48,9 +41,7 @@ const getSingleBlog = catchAsync(async (req, res) => {
   });
 });
 
-
 const getAllBlogss: RequestHandler = catchAsync(async (req, res) => {
-
   const result = await BlogsServices.getAllBlogFromDB(req.query);
 
   sendResponse(res, {
@@ -63,7 +54,6 @@ const getAllBlogss: RequestHandler = catchAsync(async (req, res) => {
 });
 
 const getAllBlogssByAuthor: RequestHandler = catchAsync(async (req, res) => {
-
   const { blogId } = req.params;
   const result = await BlogsServices.getAllBlogByAuthorFromDB(blogId);
 
@@ -74,7 +64,6 @@ const getAllBlogssByAuthor: RequestHandler = catchAsync(async (req, res) => {
     data: result,
   });
 });
-
 
 const updateBlogs = catchAsync(async (req, res) => {
   const { blogId } = req.params;
@@ -94,7 +83,6 @@ const updateBlogs = catchAsync(async (req, res) => {
   });
 });
 
-
 const deleteBlogs = catchAsync(async (req, res) => {
   const { blogId } = req.params;
   const result = await BlogsServices.deleteBlogFromDB(blogId);
@@ -107,12 +95,11 @@ const deleteBlogs = catchAsync(async (req, res) => {
   });
 });
 
-
 export const BlogsControllers = {
   createBlogs,
   getAllBlogss,
   getSingleBlog,
   deleteBlogs,
   updateBlogs,
-  getAllBlogssByAuthor
+  getAllBlogssByAuthor,
 };

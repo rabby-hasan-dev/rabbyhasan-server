@@ -5,7 +5,6 @@ import { ExperienceControllers } from './experience.controller';
 import validateRequest from '../../middlewares/validateRequest';
 import { experienceValidationSchema } from './experience.validation';
 
-
 const router = express.Router();
 
 router.post(
@@ -14,16 +13,17 @@ router.post(
   validateRequest(experienceValidationSchema.ExperienceSchema),
   ExperienceControllers.createExperience,
 );
-router.get('/',
-  auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
-  ExperienceControllers.getAllExperiences);
+router.get(
+  '/',
+  // auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
+  ExperienceControllers.getAllExperiences,
+);
 
 router.get(
   '/:experienceId',
 
   ExperienceControllers.getSingleExperience,
 );
-
 
 router.put(
   '/:experienceId',
@@ -36,6 +36,5 @@ router.delete(
   auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
   ExperienceControllers.updateExperience,
 );
-
 
 export const experienceRoutes = router;

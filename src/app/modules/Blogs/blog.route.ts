@@ -9,7 +9,6 @@ import validateRequest from '../../middlewares/validateRequest';
 import { BlogValidationSchema } from './blog.validation';
 import { BlogsControllers } from './blog.controller';
 
-
 const router = express.Router();
 
 router.post(
@@ -20,9 +19,11 @@ router.post(
   validateRequest(BlogValidationSchema.BlogSchema),
   BlogsControllers.createBlogs,
 );
-router.get('/',
-  // auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
-  BlogsControllers.getAllBlogss);
+router.get(
+  '/',
+
+  BlogsControllers.getAllBlogss,
+);
 
 router.get(
   '/:blogId',
@@ -38,7 +39,7 @@ router.get(
 
 router.put(
   '/:blogId',
-  // auth(USER_ROLE.USER, USER_ROLE.ADMIN),
+  auth(USER_ROLE.USER, USER_ROLE.ADMIN),
   multerUpload.fields([{ name: 'file' }]),
   parseBody,
   validateRequest(BlogValidationSchema.UpdateBlogSchema),
@@ -46,9 +47,8 @@ router.put(
 );
 router.delete(
   '/:blogId',
-  // auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
+  auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
   BlogsControllers.deleteBlogs,
 );
-
 
 export const BlogRoutes = router;

@@ -1,5 +1,1 @@
-export const ClientSearchableFields = [
-  'description',
-  'title',
-
-];
+export const ClientSearchableFields = ['description', 'title'];

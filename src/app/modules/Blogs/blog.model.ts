@@ -1,11 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { BlogModel, IBlog } from './blog.interface';
-import { boolean } from 'zod';
-
-
 
 const BlogSchema = new Schema<IBlog, BlogModel>(
-
   {
     title: {
       type: String,
@@ -42,11 +38,13 @@ const BlogSchema = new Schema<IBlog, BlogModel>(
       type: Number,
       default: 0,
     },
-    comments: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Comment',
-      required: true,
-    }],
+    comments: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Comment',
+        required: true,
+      },
+    ],
     publishedAt: {
       type: Date,
       default: null,
@@ -56,13 +54,12 @@ const BlogSchema = new Schema<IBlog, BlogModel>(
       enum: ['draft', 'published', 'archived'],
       default: 'draft',
     },
-    isDeleted: { type: Boolean, default: false }
+    isDeleted: { type: Boolean, default: false },
   },
   {
     timestamps: true,
   },
 );
-
 
 // Query Middleware
 BlogSchema.pre('find', function (next) {

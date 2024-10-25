@@ -1,5 +1,1 @@
-export const TechnologySearchableFields = [
-  'description',
-  'title',
-
-];
+export const TechnologySearchableFields = ['description', 'title'];

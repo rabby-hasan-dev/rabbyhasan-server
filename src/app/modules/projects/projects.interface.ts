@@ -10,19 +10,21 @@ export interface IProject {
   category?: string;
   author: Types.ObjectId;
   images?: string[];
-  client?: Types.ObjectId;  // Reference to Client model
+  client?: Types.ObjectId; // Reference to Client model
   testimonials: Types.ObjectId[];
   startDate: Date;
   endDate?: Date;
   upvote: number;
   downvote: number;
-  tags: string[];
+  tags: string;
+  projectType: string;
   collaborators: Types.ObjectId;
   views: number;
   features: string[];
-  isDeleted: boolean
+  isDeleted: boolean;
 }
 
 export interface ProjectModel extends Model<IProject> {
+  // eslint-disable-next-line no-unused-vars
   isProjectExists(id: string): Promise<IProject | null>;
 }

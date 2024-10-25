@@ -8,7 +8,6 @@ import { User } from '../User/user.model';
 import { validateRating } from './social.utils';
 import { Project } from '../projects/projects.model';
 
-
 // -------------- Rate Projectsection ---------
 
 // Submit or update a rating, then calculate and update the project's average rating
@@ -77,6 +76,7 @@ const rateAndCalculateAverage = async (
       totalRatings,
       message: 'Rating submitted successfully!',
     };
+    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   } catch (error) {
     await session.abortTransaction();
     session.endSession();
@@ -98,7 +98,7 @@ const getProjectRatingsFromDB = async (projectId: string) => {
 const postProjectCommentIntoDB = async (
   currentUserId: string,
   projectId: string,
-  comment: any,
+  comment: string,
 ) => {
   const userExists = await User.isUserExists(currentUserId);
 
@@ -134,7 +134,7 @@ const postProjectCommentIntoDB = async (
 
     return savedComment;
 
-    // @ts-nocheck
+    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   } catch (err) {
     await session.abortTransaction();
     session.endSession();
@@ -155,7 +155,7 @@ const getProjectCommentFromDB = async (projectId: string) => {
 const editProjectCommentFromDB = async (
   userId: string,
   commentId: string,
-  content: any,
+  content: string,
 ) => {
   const comment = await Comment.findOne({ _id: commentId, userId });
 
@@ -202,7 +202,8 @@ const deleteProjectCommentFromDB = async (
     await session.commitTransaction();
     session.endSession();
     return deleteComment;
-    // @ts-nocheck
+
+    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   } catch (error) {
     await session.abortTransaction();
     session.endSession();
@@ -237,6 +238,7 @@ const toggleVote = async (
     ) {
       // Remove vote (unvote)
       await Vote.deleteOne({ user: userId, projectId });
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       type === 'upvote' ? project.upvote-- : project.downvote--;
       await project.save();
       return { message: `${type} removed` };
@@ -257,6 +259,7 @@ const toggleVote = async (
       value: type === 'upvote' ? 1 : -1,
     });
     await vote.save();
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     type === 'upvote' ? project.upvote++ : project.downvote++;
     await project.save();
     return { message: `${type} added` };

@@ -7,12 +7,10 @@ import AppError from '../../errors/AppError';
 import { TImageFiles } from '../../interface/image.interface';
 import { AchievementsServices } from './achievement.service';
 
-
 const createAchievement = catchAsync(async (req, res) => {
   if (!req.files) {
     throw new AppError(httpStatus.BAD_REQUEST, 'Please upload an image!');
   }
-
 
   const AchievementData = req.body;
   const files = req.files;
@@ -22,7 +20,6 @@ const createAchievement = catchAsync(async (req, res) => {
     files as TImageFiles,
   );
 
-
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -31,11 +28,10 @@ const createAchievement = catchAsync(async (req, res) => {
   });
 });
 
-
-
 const getSingleAchievement = catchAsync(async (req, res) => {
   const { AchievementId } = req.params;
-  const result = await AchievementsServices.getSingleAchievementFromDB(AchievementId);
+  const result =
+    await AchievementsServices.getSingleAchievementFromDB(AchievementId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -45,9 +41,7 @@ const getSingleAchievement = catchAsync(async (req, res) => {
   });
 });
 
-
 const getAllAchievements: RequestHandler = catchAsync(async (req, res) => {
-
   const result = await AchievementsServices.getAllAchievementFromDB(req.query);
 
   sendResponse(res, {
@@ -59,19 +53,20 @@ const getAllAchievements: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
-const getAllAchievementsByAuthor: RequestHandler = catchAsync(async (req, res) => {
+const getAllAchievementsByAuthor: RequestHandler = catchAsync(
+  async (req, res) => {
+    const { AchievementId } = req.params;
+    const result =
+      await AchievementsServices.getAllAchievementByAuthorFromDB(AchievementId);
 
-  const { AchievementId } = req.params;
-  const result = await AchievementsServices.getAllAchievementByAuthorFromDB(AchievementId);
-
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Achievement are retrieved succesfully',
-    data: result,
-  });
-});
-
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Achievement are retrieved succesfully',
+      data: result,
+    });
+  },
+);
 
 const updateAchievement = catchAsync(async (req, res) => {
   const { AchievementId } = req.params;
@@ -91,10 +86,10 @@ const updateAchievement = catchAsync(async (req, res) => {
   });
 });
 
-
 const deleteAchievement = catchAsync(async (req, res) => {
   const { AchievementId } = req.params;
-  const result = await AchievementsServices.deleteAchievementFromDB(AchievementId);
+  const result =
+    await AchievementsServices.deleteAchievementFromDB(AchievementId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -104,12 +99,11 @@ const deleteAchievement = catchAsync(async (req, res) => {
   });
 });
 
-
 export const AchievementControllers = {
   createAchievement,
   getAllAchievements,
   getSingleAchievement,
   deleteAchievement,
   updateAchievement,
-  getAllAchievementsByAuthor
+  getAllAchievementsByAuthor,
 };

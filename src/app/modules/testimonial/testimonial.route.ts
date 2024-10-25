@@ -17,9 +17,11 @@ router.post(
   validateRequest(testimonialValidationSchema.TestimonialSchema),
   TestimonialControllers.createTestimonial,
 );
-router.get('/',
+router.get(
+  '/',
   auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
-  TestimonialControllers.getAllTestimonials);
+  TestimonialControllers.getAllTestimonials,
+);
 
 router.get(
   '/:testimonialId',
@@ -46,6 +48,5 @@ router.delete(
   auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
   TestimonialControllers.deleteTestimonial,
 );
-
 
 export const testimonialRoutes = router;

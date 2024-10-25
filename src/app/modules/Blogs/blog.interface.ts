@@ -12,10 +12,10 @@ export interface IBlog {
   comments: Types.ObjectId[]; // Array of references to the Comment model
   publishedAt?: Date; // Optional field for the publish date
   status: 'draft' | 'published' | 'archived'; // Enum for the post status
-  isDeleted: Boolean;
-
+  isDeleted: boolean;
 }
 
 export interface BlogModel extends Model<IBlog> {
+  // eslint-disable-next-line no-unused-vars
   isBlogExists(id: string): Promise<IBlog | null>;
 }

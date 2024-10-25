@@ -1,11 +1,9 @@
-
 import QueryBuilder from '../../builder/QueryBuilder';
 import AppError from '../../errors/AppError';
 import httpStatus from 'http-status';
 import { TechnologySearchableFields } from './technology.constant';
 import { Technology } from './technology.model';
 import { ITechnology } from './technology.interface';
-
 
 const getAllTechnologyFromDB = async (query: Record<string, unknown>) => {
   const UserQuery = new QueryBuilder(Technology.find(), query)
@@ -24,33 +22,29 @@ const getAllTechnologyFromDB = async (query: Record<string, unknown>) => {
   };
 };
 
+const getAllTechnologyByTypeFromDB = async (type: string) => {
+  const typeByresult = await Technology.find({ type: type });
 
-const CreateTechnologyIntoDB = async (
-  payload: ITechnology,
+  return typeByresult;
+};
 
-) => {
-
+const CreateTechnologyIntoDB = async (payload: ITechnology) => {
   const result = await Technology.create(payload);
   return result;
 };
 
-
 const getSingleTechnologyFromDB = async (id: string) => {
-
   const result = await Technology.findById(id);
   return result;
 };
-
-
 
 const updateTechnologyIntoDB = async (
   id: string,
   payload: Partial<ITechnology>,
 ) => {
-
-  const isTechnologyExists = await Technology.isTechnologyExists(id)
+  const isTechnologyExists = await Technology.isTechnologyExists(id);
   if (!isTechnologyExists) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Technology not found!')
+    throw new AppError(httpStatus.NOT_FOUND, 'Technology not found!');
   }
 
   const result = await Technology.findByIdAndUpdate(id, payload, {
@@ -60,12 +54,10 @@ const updateTechnologyIntoDB = async (
   return result;
 };
 
-
 const deleteTechnologyFromDB = async (id: string) => {
-
-  const isTechnologyExists = await Technology.isTechnologyExists(id)
+  const isTechnologyExists = await Technology.isTechnologyExists(id);
   if (!isTechnologyExists) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Technology not found!')
+    throw new AppError(httpStatus.NOT_FOUND, 'Technology not found!');
   }
   const result = await Technology.findByIdAndUpdate(
     id,
@@ -78,11 +70,11 @@ const deleteTechnologyFromDB = async (id: string) => {
   return result;
 };
 
-
 export const technologyServices = {
   CreateTechnologyIntoDB,
   getAllTechnologyFromDB,
   getSingleTechnologyFromDB,
   updateTechnologyIntoDB,
   deleteTechnologyFromDB,
+  getAllTechnologyByTypeFromDB,
 };

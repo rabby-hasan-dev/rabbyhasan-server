@@ -1,13 +1,7 @@
 import bcrypt from 'bcrypt';
 import { Schema, model } from 'mongoose';
 import config from '../../config';
-import {
-  TUser,
-  TUserName,
-  UserModel,
-  UserRoleEnum,
-} from './user.interface';
-
+import { TUser, TUserName, UserModel, UserRoleEnum } from './user.interface';
 
 const userNameSchema = new Schema<TUserName>({
   firstName: {
@@ -24,22 +18,35 @@ const userNameSchema = new Schema<TUserName>({
 
 const userSchema = new Schema<TUser, UserModel>(
   {
-    name: { type: userNameSchema, },
-    bio: { type: String, trim: true, },
-    email: { type: String, required: true, unique: true, trim: true, lowercase: true, },
-    password: { type: String, required: true, },
-    needsPasswordChange: { type: Boolean, default: true, },
+    name: { type: userNameSchema },
+    bio: { type: String, trim: true },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      lowercase: true,
+    },
+    password: { type: String, required: true },
+    needsPasswordChange: { type: Boolean, default: true },
     passwordChangedAt: { type: Date },
-    role: { type: String, enum: UserRoleEnum, default: UserRoleEnum.USER, required: true },
+    role: {
+      type: String,
+      enum: UserRoleEnum,
+      default: UserRoleEnum.USER,
+      required: true,
+    },
     isVerified: { type: Boolean, default: false },
     status: { type: String },
-    profilePicture: { type: String, },
-    phone: { type: String, },
-    address: { type: String, },
-    socialLinks: [{
-      platform: { type: String, trim: true },
-      url: { type: String, trim: true },
-    }],
+    profilePicture: { type: String },
+    phone: { type: String },
+    address: { type: String },
+    socialLinks: [
+      {
+        platform: { type: String, trim: true },
+        url: { type: String, trim: true },
+      },
+    ],
     isDeleted: { type: Boolean, default: false },
   },
   {
@@ -48,11 +55,7 @@ const userSchema = new Schema<TUser, UserModel>(
       virtuals: true,
     },
   },
-
 );
-
-
-
 
 // Query Middleware
 userSchema.pre('find', function (next) {
@@ -70,8 +73,8 @@ userSchema.pre('aggregate', function (next) {
   next();
 });
 
-
 userSchema.pre('save', async function (next) {
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
   const user = this; // doc
   // hashing password and save into DB
   user.password = await bcrypt.hash(
@@ -117,7 +120,6 @@ userSchema.methods.isPremiumActive = function () {
 
 userSchema.virtual('fullName').get(function () {
   return `${this?.name?.firstName} ${this?.name?.lastName}`;
-})
-
+});
 
 export const User = model<TUser, UserModel>('User', userSchema);

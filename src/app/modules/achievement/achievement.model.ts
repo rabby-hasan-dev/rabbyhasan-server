@@ -1,18 +1,18 @@
 import { Schema, model } from 'mongoose';
 import { AchievementModel, IAchievement } from './achievement.interface';
 
-
-
 // Define Achievement Schema
-const AchievementSchema: Schema<IAchievement, AchievementModel> = new Schema<IAchievement, AchievementModel>({
+const AchievementSchema: Schema<IAchievement, AchievementModel> = new Schema<
+  IAchievement,
+  AchievementModel
+>({
   title: { type: String, required: true },
   description: { type: String, required: true },
   date: { type: Date, required: true },
   imageUrl: [{ type: String }],
+  icon: { type: String, required: true }, // New field for the icon
   isDeleted: { type: Boolean, default: false },
-
 });
-
 
 // Query Middleware
 AchievementSchema.pre('find', function (next) {
@@ -36,4 +36,7 @@ AchievementSchema.statics.isAchievementExists = async function (id: string) {
   return existingAchievement;
 };
 
-export const Achievement = model<IAchievement, AchievementModel>('Achievement', AchievementSchema);
+export const Achievement = model<IAchievement, AchievementModel>(
+  'Achievement',
+  AchievementSchema,
+);

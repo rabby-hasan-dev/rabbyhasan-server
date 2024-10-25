@@ -13,16 +13,19 @@ router.post(
   validateRequest(technologyValidationSchema.TechnologySchema),
   technologyControllers.createTechnologys,
 );
-router.get('/',
+router.get(
+  '/',
   auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
-  technologyControllers.getAllTechnologyss);
+  technologyControllers.getAllTechnologyss,
+);
+
+router.get('/type/:type', technologyControllers.getAllTechnologyByType);
 
 router.get(
   '/:technologyId',
 
   technologyControllers.getSingleTechnology,
 );
-
 
 router.put(
   '/:technologyId',
@@ -35,6 +38,5 @@ router.delete(
   validateRequest(technologyValidationSchema.UpdateTechnologySchema),
   technologyControllers.deleteTechnologys,
 );
-
 
 export const technologyRoutes = router;

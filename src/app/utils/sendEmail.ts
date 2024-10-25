@@ -14,7 +14,6 @@ export const sendEmail = async (to: string, html: string) => {
     },
   });
 
-
   await transporter.sendMail({
     from: config.nodemailer_sender_email_address, // sender address
     to, // list of receivers
@@ -22,6 +21,4 @@ export const sendEmail = async (to: string, html: string) => {
     text: '', // plain text body
     html, // html body
   });
-
-
 };

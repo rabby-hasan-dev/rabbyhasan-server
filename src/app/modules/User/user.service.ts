@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import httpStatus from 'http-status';
 
 import AppError from '../../errors/AppError';
@@ -11,7 +12,11 @@ import { UserSearchableFields } from './user.constant';
 
 const getMyProfileIntoDB = async (email: string, role: string) => {
   let result = null;
-  if (role === USER_ROLE.USER || role === USER_ROLE.ADMIN || role === USER_ROLE.SUPER_ADMIN) {
+  if (
+    role === USER_ROLE.USER ||
+    role === USER_ROLE.ADMIN ||
+    role === USER_ROLE.SUPER_ADMIN
+  ) {
     result = await User.findOne({ email: email });
   }
   return result;
@@ -33,10 +38,6 @@ const updateUserDataIntoDB = async (
     payload.profilePicture = file.path;
   }
 
-
-
-
-
   const { name, ...remainingUserData } = payload;
   const modifiedUpdatedData: Record<string, unknown> = {
     ...remainingUserData,
@@ -48,45 +49,38 @@ const updateUserDataIntoDB = async (
     }
   }
 
-
-
   try {
-
     const result = await User.findOneAndUpdate(
       { email: email },
       modifiedUpdatedData,
-      { new: true }
+      { new: true },
     );
 
     return result;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
-    console.error("Update error:", err); // Catch and log any errors
+    // Catch and log any errors
   }
-
-
-
 };
-
 
 const getSingleUserFromDB = async (id: string) => {
   const result = await User.findById(id);
   return result;
 };
 
-
-
 const delteUserFromDB = async (id: string) => {
-
-  const result = await User.findByIdAndUpdate(id, {
-    isDeleted: true
-  }, {
-    new: true
-  });
+  const result = await User.findByIdAndUpdate(
+    id,
+    {
+      isDeleted: true,
+    },
+    {
+      new: true,
+    },
+  );
 
   return result;
 };
-
-
 
 const getAllUsersFromDB = async (query: Record<string, unknown>) => {
   const UserQuery = new QueryBuilder(User.find(), query)
@@ -105,19 +99,10 @@ const getAllUsersFromDB = async (query: Record<string, unknown>) => {
   };
 };
 
-
-
-
-
-
-
 export const UserServices = {
   updateUserDataIntoDB,
   getMyProfileIntoDB,
   getAllUsersFromDB,
   getSingleUserFromDB,
-  delteUserFromDB
-
+  delteUserFromDB,
 };
-
-

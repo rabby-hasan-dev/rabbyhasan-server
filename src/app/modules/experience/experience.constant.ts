@@ -1,5 +1,1 @@
-export const ExperienceSearchableFields = [
-  'description',
-  'title',
-
-];
+export const ExperienceSearchableFields = ['description', 'title'];

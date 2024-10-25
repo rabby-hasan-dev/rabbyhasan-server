@@ -1,5 +1,1 @@
-export const AchievementSearchableFields = [
-  'description',
-  'title',
-
-];
+export const AchievementSearchableFields = ['description', 'title'];

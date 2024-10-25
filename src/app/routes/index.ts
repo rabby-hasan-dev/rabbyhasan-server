@@ -58,6 +58,10 @@ const moduleRoutes = [
     path: '/blogs',
     route: BlogRoutes,
   },
+  // {
+  //   path: '/visitors',
+  //   route: VisitorRoutes,
+  // },
 ];
 
 moduleRoutes.forEach((route) => router.use(route.path, route.route));

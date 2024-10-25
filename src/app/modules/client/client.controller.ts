@@ -4,15 +4,10 @@ import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { ClientServices } from './client.service';
 
-
-
-
 const createClient = catchAsync(async (req, res) => {
-
   const ClientData = req.body;
 
-  const result = await ClientServices.CreateClientIntoDB(ClientData,);
-
+  const result = await ClientServices.CreateClientIntoDB(ClientData);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -21,8 +16,6 @@ const createClient = catchAsync(async (req, res) => {
     data: result,
   });
 });
-
-
 
 const getSingleClient = catchAsync(async (req, res) => {
   const { clientId } = req.params;
@@ -36,9 +29,7 @@ const getSingleClient = catchAsync(async (req, res) => {
   });
 });
 
-
 const getAllClients: RequestHandler = catchAsync(async (req, res) => {
-
   const result = await ClientServices.getAllClientFromDB(req.query);
 
   sendResponse(res, {
@@ -50,16 +41,11 @@ const getAllClients: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
-
 const updateClient = catchAsync(async (req, res) => {
   const { clientId } = req.params;
   const ClientData = req.body;
 
-  const result = await ClientServices.updateClientIntoDB(
-    clientId,
-    ClientData,
-  );
-
+  const result = await ClientServices.updateClientIntoDB(clientId, ClientData);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -69,10 +55,7 @@ const updateClient = catchAsync(async (req, res) => {
   });
 });
 
-
 const deleteClient = catchAsync(async (req, res) => {
-
-
   const { clientId } = req.params;
 
   const result = await ClientServices.deleteClientFromDB(clientId);
@@ -85,12 +68,10 @@ const deleteClient = catchAsync(async (req, res) => {
   });
 });
 
-
 export const ClientControllers = {
   createClient,
   getAllClients,
   getSingleClient,
   deleteClient,
   updateClient,
-
 };

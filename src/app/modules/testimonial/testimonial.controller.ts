@@ -8,20 +8,16 @@ import { TImageFiles } from '../../interface/image.interface';
 import { TestimonialsServices } from './testimonial.service';
 
 const createTestimonial = catchAsync(async (req, res) => {
-
   if (!req.files) {
     throw new AppError(httpStatus.BAD_REQUEST, 'Please upload an image!');
   }
 
-
   const TestimonialData = req.body;
   const files = req.files;
   const result = await TestimonialsServices.CreateTestimonialIntoDB(
-
     TestimonialData,
     files as TImageFiles,
   );
-
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -31,11 +27,10 @@ const createTestimonial = catchAsync(async (req, res) => {
   });
 });
 
-
-
 const getSingleTestimonial = catchAsync(async (req, res) => {
   const { testimonialId } = req.params;
-  const result = await TestimonialsServices.getSingleTestimonialFromDB(testimonialId);
+  const result =
+    await TestimonialsServices.getSingleTestimonialFromDB(testimonialId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -45,9 +40,7 @@ const getSingleTestimonial = catchAsync(async (req, res) => {
   });
 });
 
-
 const getAllTestimonials: RequestHandler = catchAsync(async (req, res) => {
-
   const result = await TestimonialsServices.getAllTestimonialFromDB(req.query);
 
   sendResponse(res, {
@@ -59,19 +52,20 @@ const getAllTestimonials: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
-const getAllTestimonialsByAuthor: RequestHandler = catchAsync(async (req, res) => {
+const getAllTestimonialsByAuthor: RequestHandler = catchAsync(
+  async (req, res) => {
+    const { testimonialId } = req.params;
+    const result =
+      await TestimonialsServices.getAllTestimonialByAuthorFromDB(testimonialId);
 
-  const { testimonialId } = req.params;
-  const result = await TestimonialsServices.getAllTestimonialByAuthorFromDB(testimonialId);
-
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Testimonial are retrieved succesfully',
-    data: result,
-  });
-});
-
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Testimonial are retrieved succesfully',
+      data: result,
+    });
+  },
+);
 
 const updateTestimonial = catchAsync(async (req, res) => {
   const { testimonialId } = req.params;
@@ -91,10 +85,10 @@ const updateTestimonial = catchAsync(async (req, res) => {
   });
 });
 
-
 const deleteTestimonial = catchAsync(async (req, res) => {
   const { testimonialId } = req.params;
-  const result = await TestimonialsServices.deleteTestimonialFromDB(testimonialId);
+  const result =
+    await TestimonialsServices.deleteTestimonialFromDB(testimonialId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -104,12 +98,11 @@ const deleteTestimonial = catchAsync(async (req, res) => {
   });
 });
 
-
 export const TestimonialControllers = {
   createTestimonial,
   getAllTestimonials,
   getSingleTestimonial,
   deleteTestimonial,
   updateTestimonial,
-  getAllTestimonialsByAuthor
+  getAllTestimonialsByAuthor,
 };

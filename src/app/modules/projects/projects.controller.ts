@@ -7,13 +7,9 @@ import AppError from '../../errors/AppError';
 import { TImageFiles } from '../../interface/image.interface';
 
 const createProjects = catchAsync(async (req, res) => {
-
-
   if (!req.files) {
-    console.log(req.files);
     throw new AppError(httpStatus.BAD_REQUEST, 'Please upload an image!');
   }
-
 
   const projectData = req.body;
   const files = req.files;
@@ -24,7 +20,6 @@ const createProjects = catchAsync(async (req, res) => {
     files as TImageFiles,
   );
 
-
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -32,8 +27,6 @@ const createProjects = catchAsync(async (req, res) => {
     data: result,
   });
 });
-
-
 
 const getSingleProject = catchAsync(async (req, res) => {
   const { projectId } = req.params;
@@ -47,9 +40,7 @@ const getSingleProject = catchAsync(async (req, res) => {
   });
 });
 
-
 const getAllProjectss: RequestHandler = catchAsync(async (req, res) => {
-
   const result = await ProjectsServices.getAllProjectFromDB(req.query);
 
   sendResponse(res, {
@@ -62,7 +53,6 @@ const getAllProjectss: RequestHandler = catchAsync(async (req, res) => {
 });
 
 const getAllProjectssByAuthor: RequestHandler = catchAsync(async (req, res) => {
-
   const { projectId } = req.params;
   const result = await ProjectsServices.getAllProjectByAuthorFromDB(projectId);
 
@@ -73,7 +63,6 @@ const getAllProjectssByAuthor: RequestHandler = catchAsync(async (req, res) => {
     data: result,
   });
 });
-
 
 const updateProjects = catchAsync(async (req, res) => {
   const { projectId } = req.params;
@@ -93,7 +82,6 @@ const updateProjects = catchAsync(async (req, res) => {
   });
 });
 
-
 const deleteProjects = catchAsync(async (req, res) => {
   const { projectId } = req.params;
   const result = await ProjectsServices.deleteProjectFromDB(projectId);
@@ -106,12 +94,11 @@ const deleteProjects = catchAsync(async (req, res) => {
   });
 });
 
-
 export const ProjectsControllers = {
   createProjects,
   getAllProjectss,
   getSingleProject,
   deleteProjects,
   updateProjects,
-  getAllProjectssByAuthor
+  getAllProjectssByAuthor,
 };

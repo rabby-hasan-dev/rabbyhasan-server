@@ -1,4 +1,3 @@
-
 import QueryBuilder from '../../builder/QueryBuilder';
 import { TImageFiles } from '../../interface/image.interface';
 import AppError from '../../errors/AppError';
@@ -6,8 +5,6 @@ import httpStatus from 'http-status';
 import { Achievement } from './achievement.model';
 import { IAchievement } from './achievement.interface';
 import { AchievementSearchableFields } from './achievement.constant';
-
-
 
 const getAllAchievementFromDB = async (query: Record<string, unknown>) => {
   const UserQuery = new QueryBuilder(Achievement.find(), query)
@@ -26,15 +23,11 @@ const getAllAchievementFromDB = async (query: Record<string, unknown>) => {
   };
 };
 
-
 const CreateAchievementIntoDB = async (
   payload: IAchievement,
   files: TImageFiles,
 ) => {
-
   const { file } = files;
-
-
 
   if (files?.file?.length) {
     payload.imageUrl = file.map((image) => image.path);
@@ -45,31 +38,29 @@ const CreateAchievementIntoDB = async (
   return result;
 };
 
-
 const getSingleAchievementFromDB = async (id: string) => {
-
   const result = await Achievement.findById(id);
   return result;
 };
 
 const getAllAchievementByAuthorFromDB = async (id: string) => {
-  const result = await Achievement.find({ author: id, isDeleted: false }).populate('author');
+  const result = await Achievement.find({
+    author: id,
+    isDeleted: false,
+  }).populate('author');
   return result;
 };
-
-
 
 const updateAchievementIntoDB = async (
   id: string,
   payload: Partial<IAchievement>,
   files: TImageFiles,
 ) => {
-  const isAchievementExists = await Achievement.isAchievementExists(id)
+  const isAchievementExists = await Achievement.isAchievementExists(id);
   if (!isAchievementExists) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Achievement not found!')
+    throw new AppError(httpStatus.NOT_FOUND, 'Achievement not found!');
   }
   const { file } = files;
-
 
   if (files?.file?.length) {
     payload.imageUrl = file.map((image) => image.path);
@@ -84,10 +75,9 @@ const updateAchievementIntoDB = async (
 };
 
 const deleteAchievementFromDB = async (id: string) => {
-
-  const isAchievementExists = await Achievement.isAchievementExists(id)
+  const isAchievementExists = await Achievement.isAchievementExists(id);
   if (!isAchievementExists) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Achievement not found!')
+    throw new AppError(httpStatus.NOT_FOUND, 'Achievement not found!');
   }
   const result = await Achievement.findByIdAndUpdate(
     id,
@@ -106,5 +96,5 @@ export const AchievementsServices = {
   getSingleAchievementFromDB,
   updateAchievementIntoDB,
   deleteAchievementFromDB,
-  getAllAchievementByAuthorFromDB
+  getAllAchievementByAuthorFromDB,
 };

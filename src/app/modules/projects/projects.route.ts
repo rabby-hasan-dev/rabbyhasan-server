@@ -18,9 +18,11 @@ router.post(
   validateRequest(projectValidationSchema.ProjectSchema),
   ProjectsControllers.createProjects,
 );
-router.get('/',
+router.get(
+  '/',
   // auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
-  ProjectsControllers.getAllProjectss);
+  ProjectsControllers.getAllProjectss,
+);
 
 router.get(
   '/:projectId',
@@ -47,6 +49,5 @@ router.delete(
   auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
   ProjectsControllers.deleteProjects,
 );
-
 
 export const ProjectRoutes = router;

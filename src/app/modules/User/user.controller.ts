@@ -1,11 +1,8 @@
-
 import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { UserServices } from './user.service';
 import { RequestHandler } from 'express';
-
-
 
 const getAllUsers: RequestHandler = catchAsync(async (req, res) => {
   const result = await UserServices.getAllUsersFromDB(req.query);
@@ -18,8 +15,6 @@ const getAllUsers: RequestHandler = catchAsync(async (req, res) => {
     data: result.result,
   });
 });
-
-
 
 const getMyProfile = catchAsync(async (req, res) => {
   const { email, role } = req.user;
@@ -59,7 +54,6 @@ const getSingleUser = catchAsync(async (req, res) => {
   });
 });
 
-
 const deleteUser = catchAsync(async (req, res) => {
   const { userId } = req.params;
 
@@ -73,12 +67,10 @@ const deleteUser = catchAsync(async (req, res) => {
   });
 });
 
-
 export const UserControllers = {
   UpdateMyProfile,
   getMyProfile,
   getSingleUser,
   getAllUsers,
-  deleteUser
-
+  deleteUser,
 };

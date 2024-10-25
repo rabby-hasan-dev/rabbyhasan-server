@@ -5,8 +5,6 @@ import { ClientControllers } from './client.controller';
 import validateRequest from '../../middlewares/validateRequest';
 import { clientValidationSchema } from './client.validation';
 
-
-
 const router = express.Router();
 
 router.post(
@@ -15,16 +13,17 @@ router.post(
   validateRequest(clientValidationSchema.ClientSchema),
   ClientControllers.createClient,
 );
-router.get('/',
+router.get(
+  '/',
   auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
-  ClientControllers.getAllClients);
+  ClientControllers.getAllClients,
+);
 
 router.get(
   '/:clientId',
 
   ClientControllers.getSingleClient,
 );
-
 
 router.put(
   '/:clientId',
@@ -33,12 +32,10 @@ router.put(
   ClientControllers.updateClient,
 );
 
-
 router.delete(
   '/:clientId',
   auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
   ClientControllers.deleteClient,
 );
-
 
 export const clientRoutes = router;

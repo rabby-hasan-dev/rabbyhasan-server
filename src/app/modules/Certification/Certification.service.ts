@@ -1,12 +1,10 @@
-
 import QueryBuilder from '../../builder/QueryBuilder';
 import AppError from '../../errors/AppError';
 import httpStatus from 'http-status';
 import { CertificationSearchableFields } from './Certification.constant';
-import { Certification, } from './Certification.model';
+import { Certification } from './Certification.model';
 import { ICertification } from './Certification.interface';
 import { TImageFiles } from '../../interface/image.interface';
-
 
 const getAllCertificationFromDB = async (query: Record<string, unknown>) => {
   const UserQuery = new QueryBuilder(Certification.find(), query)
@@ -25,12 +23,10 @@ const getAllCertificationFromDB = async (query: Record<string, unknown>) => {
   };
 };
 
-
 const CreateCertificationIntoDB = async (
   payload: ICertification,
-  files: TImageFiles
+  files: TImageFiles,
 ) => {
-
   const { file } = files;
 
   const CertificationData: ICertification = {
@@ -39,29 +35,24 @@ const CreateCertificationIntoDB = async (
     credentialUrl: file.map((image) => image.path),
   };
 
-
   const result = await Certification.create(CertificationData);
 
   return result;
 };
 
-
 const getSingleCertificationFromDB = async (id: string) => {
-
   const result = await Certification.findById(id);
   return result;
 };
-
-
 
 const updateCertificationIntoDB = async (
   id: string,
   payload: Partial<ICertification>,
   files: TImageFiles,
 ) => {
-  const isCertificationExists = await Certification.isCertificationExists(id)
+  const isCertificationExists = await Certification.isCertificationExists(id);
   if (!isCertificationExists) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Certification not found!')
+    throw new AppError(httpStatus.NOT_FOUND, 'Certification not found!');
   }
 
   const { file } = files;
@@ -70,7 +61,6 @@ const updateCertificationIntoDB = async (
     payload.credentialUrl = file.map((image) => image.path);
   }
 
-
   const result = await Certification.findByIdAndUpdate(id, payload, {
     new: true,
     runValidators: true,
@@ -78,12 +68,10 @@ const updateCertificationIntoDB = async (
   return result;
 };
 
-
 const deleteCertificationFromDB = async (id: string) => {
-
-  const isCertificationExists = await Certification.isCertificationExists(id)
+  const isCertificationExists = await Certification.isCertificationExists(id);
   if (!isCertificationExists) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Certification not found!')
+    throw new AppError(httpStatus.NOT_FOUND, 'Certification not found!');
   }
   const result = await Certification.findByIdAndUpdate(
     id,
@@ -95,7 +83,6 @@ const deleteCertificationFromDB = async (id: string) => {
   );
   return result;
 };
-
 
 export const CertificationServices = {
   CreateCertificationIntoDB,

@@ -1,5 +1,1 @@
-export const TestimonialSearchableFields = [
-  'description',
-  'title',
-
-];
+export const TestimonialSearchableFields = ['description', 'title'];

@@ -1,9 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { IProject, ProjectModel } from './projects.interface';
 
-
 const ProjectSchema = new Schema<IProject, ProjectModel>(
-
   {
     title: { type: String, required: true },
     description: { type: String, required: true },
@@ -11,29 +9,39 @@ const ProjectSchema = new Schema<IProject, ProjectModel>(
     githubRepoClient: { type: String, required: true },
     githubRepoServer: { type: String, required: true },
     liveDemo: { type: String },
-    category: { type: String, enum: ['Web Development', 'Mobile Development', 'Data Science', 'Other'], default: 'Web Development' }, // Enum for predefined categories
-    author: { type: Schema.Types.ObjectId, ref: 'User' },
-    images: [{
+    category: {
       type: String,
-      required: [true, 'Image is required'],
-    }],
+      enum: ['Web Development', 'Mobile Development', 'Data Science', 'Other'],
+      default: 'Web Development',
+    }, // Enum for predefined categories
+    author: { type: Schema.Types.ObjectId, ref: 'User' },
+    images: [
+      {
+        type: String,
+        required: [true, 'Image is required'],
+      },
+    ],
     client: { type: Schema.Types.ObjectId, ref: 'Client' },
     startDate: { type: Date, required: true },
     endDate: { type: Date },
     upvote: { type: Number, default: 0 },
     downvote: { type: Number, default: 0 },
-    tags: { type: [String], default: [] },// Custom tags for easier filtering (optional)
+    projectType: {
+      type: String,
+      enum: ['Full Stack', 'Front End', 'Back End', 'Rest Api'],
+      required: true,
+    },
+    tags: { type: String }, // Custom tags for easier filtering (optional)
     features: [{ type: String }],
     isDeleted: { type: Boolean, default: false },
     testimonials: [{ type: Schema.Types.ObjectId, ref: 'Testimonial' }],
-    views: { type: Number, default: 0 },  // Track the number of views for each project
-    collaborators: [{ type: Schema.Types.ObjectId, ref: 'User' }],  // List of collaborators
+    views: { type: Number, default: 0 }, // Track the number of views for each project
+    collaborators: [{ type: Schema.Types.ObjectId, ref: 'User' }], // List of collaborators
   },
   {
     timestamps: true,
   },
 );
-
 
 // Query Middleware
 ProjectSchema.pre('find', function (next) {

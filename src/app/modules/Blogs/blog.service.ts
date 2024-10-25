@@ -7,13 +7,11 @@ import { Blog } from './blog.model';
 import { IBlog } from './blog.interface';
 import { BlogSearchableFields } from './blog.constant';
 
-
-
 const getAllBlogFromDB = async (query: Record<string, unknown>) => {
-  const UserQuery = new QueryBuilder(Blog.find()
-    .populate('author')
-    .populate('comments')
-    , query)
+  const UserQuery = new QueryBuilder(
+    Blog.find().populate('author').populate('comments'),
+    query,
+  )
     .search(BlogSearchableFields)
     .filter()
     .sort()
@@ -29,16 +27,13 @@ const getAllBlogFromDB = async (query: Record<string, unknown>) => {
   };
 };
 
-
 const CreateBlogIntoDB = async (
   userId: string,
   payload: IBlog,
   files: TImageFiles,
 ) => {
-
   const authorId = new mongoose.Types.ObjectId(userId);
   const { file } = files;
-
 
   const BlogData: IBlog = {
     ...payload,
@@ -46,15 +41,12 @@ const CreateBlogIntoDB = async (
     coverImage: file.map((image) => image.path),
   };
 
-
   const result = await Blog.create(BlogData);
 
   return result;
 };
 
-
 const getSingleBlogFromDB = async (id: string) => {
-
   const result = await Blog.findById(id)
     .populate('comments')
     .populate('author')
@@ -64,7 +56,9 @@ const getSingleBlogFromDB = async (id: string) => {
 };
 
 const getAllBlogByAuthorFromDB = async (id: string) => {
-  const result = await Blog.find({ author: id, isDeleted: false }).populate('author');
+  const result = await Blog.find({ author: id, isDeleted: false }).populate(
+    'author',
+  );
   return result;
 };
 
@@ -86,12 +80,10 @@ const updateBlogIntoDB = async (
   return result;
 };
 
-
 const deleteBlogFromDB = async (id: string) => {
-
-  const isBlogExists = await Blog.isBlogExists(id)
+  const isBlogExists = await Blog.isBlogExists(id);
   if (!isBlogExists) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Blog not found!')
+    throw new AppError(httpStatus.NOT_FOUND, 'Blog not found!');
   }
   const result = await Blog.findByIdAndUpdate(
     id,
@@ -110,5 +102,5 @@ export const BlogsServices = {
   getSingleBlogFromDB,
   updateBlogIntoDB,
   deleteBlogFromDB,
-  getAllBlogByAuthorFromDB
+  getAllBlogByAuthorFromDB,
 };

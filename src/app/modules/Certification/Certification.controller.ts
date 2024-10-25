@@ -6,19 +6,17 @@ import AppError from '../../errors/AppError';
 import { CertificationServices } from './Certification.service';
 import { TImageFiles } from '../../interface/image.interface';
 
-
 const createCertifications = catchAsync(async (req, res) => {
   if (!req.files) {
     throw new AppError(httpStatus.BAD_REQUEST, 'Please upload an image!');
   }
 
-
   const CertificationData = req.body;
   const files = req.files;
   const result = await CertificationServices.CreateCertificationIntoDB(
     CertificationData,
-    files as TImageFiles);
-
+    files as TImageFiles,
+  );
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -28,11 +26,10 @@ const createCertifications = catchAsync(async (req, res) => {
   });
 });
 
-
-
 const getSingleCertification = catchAsync(async (req, res) => {
   const { certificationId } = req.params;
-  const result = await CertificationServices.getSingleCertificationFromDB(certificationId);
+  const result =
+    await CertificationServices.getSingleCertificationFromDB(certificationId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -42,10 +39,10 @@ const getSingleCertification = catchAsync(async (req, res) => {
   });
 });
 
-
 const getAllCertificationss: RequestHandler = catchAsync(async (req, res) => {
-
-  const result = await CertificationServices.getAllCertificationFromDB(req.query);
+  const result = await CertificationServices.getAllCertificationFromDB(
+    req.query,
+  );
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -56,9 +53,7 @@ const getAllCertificationss: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
-
 const updateCertifications = catchAsync(async (req, res) => {
-
   const { certificationId } = req.params;
   const CertificationsData = req.body;
   const file = req.files;
@@ -69,7 +64,6 @@ const updateCertifications = catchAsync(async (req, res) => {
     file as TImageFiles,
   );
 
-
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -78,10 +72,10 @@ const updateCertifications = catchAsync(async (req, res) => {
   });
 });
 
-
 const deleteCertifications = catchAsync(async (req, res) => {
   const { certificationId } = req.params;
-  const result = await CertificationServices.deleteCertificationFromDB(certificationId);
+  const result =
+    await CertificationServices.deleteCertificationFromDB(certificationId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -91,12 +85,10 @@ const deleteCertifications = catchAsync(async (req, res) => {
   });
 });
 
-
 export const CertificationControllers = {
   createCertifications,
   getAllCertificationss,
   getSingleCertification,
   deleteCertifications,
   updateCertifications,
-
 };

@@ -1,6 +1,5 @@
 import { z } from 'zod';
 
-
 // Define enums
 const UserRoleEnum = z.enum(['USER', 'ADMIN', 'SUPER_ADMIN']);
 
@@ -10,10 +9,7 @@ const userNameSchema = z.object({
     .string()
     .trim()
     .max(20, 'Name cannot be more than 20 characters'),
-  lastName: z
-    .string()
-    .trim()
-    .max(20, 'Name cannot be more than 20 characters'),
+  lastName: z.string().trim().max(20, 'Name cannot be more than 20 characters'),
 });
 
 const socialLinkSchema = z.object({
@@ -21,31 +17,17 @@ const socialLinkSchema = z.object({
   url: z.string().trim().url('Invalid URL format'),
 });
 
-
 // Main User Schema
 const userValidationSchema = z.object({
   body: z.object({
     name: userNameSchema,
-    email: z
-      .string()
-      .email('Invalid email address')
-      .trim()
-      .toLowerCase(),
-    password: z
-      .string()
-      .min(6, 'Password must be at least 6 characters'),
+    email: z.string().email('Invalid email address').trim().toLowerCase(),
+    password: z.string().min(6, 'Password must be at least 6 characters'),
 
     role: UserRoleEnum.default('USER'),
     status: z.string().optional(),
-  })
-
-
+  }),
 });
-
-
-
-
-
 
 // update Main User Schema
 const userUpdateValidationSchema = z.object({
@@ -57,13 +39,8 @@ const userUpdateValidationSchema = z.object({
     phone: z.string().optional(),
     address: z.string().optional(),
     socialLinks: z.array(socialLinkSchema).optional(),
-
-  })
-
+  }),
 });
-
-
-
 
 export const UserValidation = {
   userValidationSchema,

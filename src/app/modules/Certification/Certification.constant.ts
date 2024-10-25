@@ -1,5 +1,1 @@
-export const CertificationSearchableFields = [
-  'description',
-  'title',
-
-];
+export const CertificationSearchableFields = ['description', 'title'];

@@ -5,12 +5,10 @@ import sendResponse from '../../utils/sendResponse';
 
 import { ExperienceServices } from './experience.service';
 
-
 const createExperience = catchAsync(async (req, res) => {
-
   const ExperienceData = req.body;
-  const result = await ExperienceServices.CreateExperienceIntoDB(ExperienceData);
-
+  const result =
+    await ExperienceServices.CreateExperienceIntoDB(ExperienceData);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -20,11 +18,10 @@ const createExperience = catchAsync(async (req, res) => {
   });
 });
 
-
-
 const getSingleExperience = catchAsync(async (req, res) => {
   const { experienceId } = req.params;
-  const result = await ExperienceServices.getSingleExperienceFromDB(experienceId);
+  const result =
+    await ExperienceServices.getSingleExperienceFromDB(experienceId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -34,9 +31,7 @@ const getSingleExperience = catchAsync(async (req, res) => {
   });
 });
 
-
 const getAllExperiences: RequestHandler = catchAsync(async (req, res) => {
-
   const result = await ExperienceServices.getAllExperienceFromDB(req.query);
 
   sendResponse(res, {
@@ -48,7 +43,6 @@ const getAllExperiences: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
-
 const updateExperience = catchAsync(async (req, res) => {
   const { experienceId } = req.params;
   const ExperienceData = req.body;
@@ -58,7 +52,6 @@ const updateExperience = catchAsync(async (req, res) => {
     ExperienceData,
   );
 
-
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -66,7 +59,6 @@ const updateExperience = catchAsync(async (req, res) => {
     data: result,
   });
 });
-
 
 const deleteExperience = catchAsync(async (req, res) => {
   const { experienceId } = req.params;
@@ -80,12 +72,10 @@ const deleteExperience = catchAsync(async (req, res) => {
   });
 });
 
-
 export const ExperienceControllers = {
   createExperience,
   getAllExperiences,
   getSingleExperience,
   deleteExperience,
   updateExperience,
-
 };

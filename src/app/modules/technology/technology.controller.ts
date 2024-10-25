@@ -5,11 +5,10 @@ import sendResponse from '../../utils/sendResponse';
 import { technologyServices } from './technology.service';
 
 const createTechnologys = catchAsync(async (req, res) => {
-
   const TechnologyData = req.body;
 
-  const result = await technologyServices.CreateTechnologyIntoDB(TechnologyData);
-
+  const result =
+    await technologyServices.CreateTechnologyIntoDB(TechnologyData);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -19,11 +18,10 @@ const createTechnologys = catchAsync(async (req, res) => {
   });
 });
 
-
-
 const getSingleTechnology = catchAsync(async (req, res) => {
   const { technologyId } = req.params;
-  const result = await technologyServices.getSingleTechnologyFromDB(technologyId);
+  const result =
+    await technologyServices.getSingleTechnologyFromDB(technologyId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -33,9 +31,7 @@ const getSingleTechnology = catchAsync(async (req, res) => {
   });
 });
 
-
 const getAllTechnologyss: RequestHandler = catchAsync(async (req, res) => {
-
   const result = await technologyServices.getAllTechnologyFromDB(req.query);
 
   sendResponse(res, {
@@ -47,6 +43,18 @@ const getAllTechnologyss: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+const getAllTechnologyByType: RequestHandler = catchAsync(async (req, res) => {
+  const { type } = req.params;
+
+  const result = await technologyServices.getAllTechnologyByTypeFromDB(type);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Technologys are retrieved By Type succesfully',
+    data: result,
+  });
+});
 
 const updateTechnologys = catchAsync(async (req, res) => {
   const { technologyId } = req.params;
@@ -57,7 +65,6 @@ const updateTechnologys = catchAsync(async (req, res) => {
     TechnologysData,
   );
 
-
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -65,7 +72,6 @@ const updateTechnologys = catchAsync(async (req, res) => {
     data: result,
   });
 });
-
 
 const deleteTechnologys = catchAsync(async (req, res) => {
   const { technologyId } = req.params;
@@ -79,12 +85,11 @@ const deleteTechnologys = catchAsync(async (req, res) => {
   });
 });
 
-
 export const technologyControllers = {
   createTechnologys,
   getAllTechnologyss,
   getSingleTechnology,
   deleteTechnologys,
   updateTechnologys,
-
+  getAllTechnologyByType,
 };

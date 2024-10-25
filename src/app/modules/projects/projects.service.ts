@@ -8,13 +8,15 @@ import { Project } from './projects.model';
 import { IProject } from './projects.interface';
 
 const getAllProjectFromDB = async (query: Record<string, unknown>) => {
-  const UserQuery = new QueryBuilder(Project.find()
-    .populate('technologies')
-    .populate('author')
-    .populate('client')
-    .populate('testimonials')
-    .populate('collaborators')
-    , query)
+  const UserQuery = new QueryBuilder(
+    Project.find()
+      .populate('technologies')
+      .populate('author')
+      .populate('client')
+      .populate('testimonials')
+      .populate('collaborators'),
+    query,
+  )
     .search(projectSearchableFields)
     .filter()
     .sort()
@@ -30,16 +32,13 @@ const getAllProjectFromDB = async (query: Record<string, unknown>) => {
   };
 };
 
-
 const CreateProjectIntoDB = async (
   userId: string,
   payload: IProject,
   files: TImageFiles,
 ) => {
-
   const authorId = new mongoose.Types.ObjectId(userId);
   const { file } = files;
-
 
   const ProjectData: IProject = {
     ...payload,
@@ -47,15 +46,12 @@ const CreateProjectIntoDB = async (
     images: file.map((image) => image.path),
   };
 
-
   const result = await Project.create(ProjectData);
 
   return result;
 };
 
-
 const getSingleProjectFromDB = async (id: string) => {
-
   const result = await Project.findById(id)
     .populate('technologies')
     .populate('author')
@@ -67,7 +63,9 @@ const getSingleProjectFromDB = async (id: string) => {
 };
 
 const getAllProjectByAuthorFromDB = async (id: string) => {
-  const result = await Project.find({ author: id, isDeleted: false }).populate('author');
+  const result = await Project.find({ author: id, isDeleted: false }).populate(
+    'author',
+  );
   return result;
 };
 
@@ -89,12 +87,10 @@ const updateProjectIntoDB = async (
   return result;
 };
 
-
 const deleteProjectFromDB = async (id: string) => {
-
-  const isProjectExists = await Project.isProjectExists(id)
+  const isProjectExists = await Project.isProjectExists(id);
   if (!isProjectExists) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Project not found!')
+    throw new AppError(httpStatus.NOT_FOUND, 'Project not found!');
   }
   const result = await Project.findByIdAndUpdate(
     id,
@@ -113,5 +109,5 @@ export const ProjectsServices = {
   getSingleProjectFromDB,
   updateProjectIntoDB,
   deleteProjectFromDB,
-  getAllProjectByAuthorFromDB
+  getAllProjectByAuthorFromDB,
 };

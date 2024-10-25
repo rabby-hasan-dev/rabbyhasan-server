@@ -1,11 +1,9 @@
-
 import QueryBuilder from '../../builder/QueryBuilder';
 import AppError from '../../errors/AppError';
 import httpStatus from 'http-status';
 import { Client } from './client.model';
 import { IClient } from './client.interface';
 import { ClientSearchableFields } from './client.constant';
-
 
 const getAllClientFromDB = async (query: Record<string, unknown>) => {
   const UserQuery = new QueryBuilder(Client.find(), query)
@@ -24,29 +22,17 @@ const getAllClientFromDB = async (query: Record<string, unknown>) => {
   };
 };
 
-
-const CreateClientIntoDB = async (
-  payload: IClient,
-
-) => {
+const CreateClientIntoDB = async (payload: IClient) => {
   const result = await Client.create(payload);
   return result;
 };
 
-
 const getSingleClientFromDB = async (id: string) => {
-
   const result = await Client.findById(id);
   return result;
 };
 
-
-
-const updateClientIntoDB = async (
-  id: string,
-  payload: Partial<IClient>,
-) => {
-
+const updateClientIntoDB = async (id: string, payload: Partial<IClient>) => {
   const result = await Client.findByIdAndUpdate(id, payload, {
     new: true,
     runValidators: true,
@@ -54,12 +40,10 @@ const updateClientIntoDB = async (
   return result;
 };
 
-
 const deleteClientFromDB = async (id: string) => {
-
-  const isClientExists = await Client.isClientExists(id)
+  const isClientExists = await Client.isClientExists(id);
   if (!isClientExists) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Client not found!')
+    throw new AppError(httpStatus.NOT_FOUND, 'Client not found!');
   }
   const result = await Client.findByIdAndUpdate(
     id,
@@ -71,7 +55,6 @@ const deleteClientFromDB = async (id: string) => {
   );
   return result;
 };
-
 
 export const ClientServices = {
   CreateClientIntoDB,

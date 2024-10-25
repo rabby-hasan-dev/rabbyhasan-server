@@ -7,7 +7,6 @@ import { AchievementControllers } from './achievement.controller';
 import { achievementValidationSchema } from './achievement.validation';
 import validateRequest from '../../middlewares/validateRequest';
 
-
 const router = express.Router();
 
 router.post(
@@ -18,9 +17,11 @@ router.post(
   validateRequest(achievementValidationSchema.AchievementSchema),
   AchievementControllers.createAchievement,
 );
-router.get('/',
+router.get(
+  '/',
   auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
-  AchievementControllers.getAllAchievements);
+  AchievementControllers.getAllAchievements,
+);
 
 router.get(
   '/:projectId',
@@ -47,6 +48,5 @@ router.delete(
   auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
   AchievementControllers.deleteAchievement,
 );
-
 
 export const AchievementRoutes = router;

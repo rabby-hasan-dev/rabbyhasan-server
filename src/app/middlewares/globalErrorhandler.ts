@@ -10,6 +10,7 @@ import handleValidationError from '../errors/handleValidationError';
 import handleZodError from '../errors/handleZodError';
 import { TErrorSources } from '../interface/error';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next): any => {
   //setting default values
   let statusCode = 500;
