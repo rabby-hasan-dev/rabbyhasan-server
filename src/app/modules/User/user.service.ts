@@ -10,9 +10,9 @@ import { TImageFile } from '../../interface/image.interface';
 import QueryBuilder from '../../builder/QueryBuilder';
 import { UserSearchableFields } from './user.constant';
 import { sendEmail } from '../../utils/sendEmail';
-import { contactUi } from '../../utils/htmlView';
 import config from '../../config';
-
+import path from 'path';
+import ejs from 'ejs';
 
 
 const getMyProfileIntoDB = async (email: string, role: string) => {
@@ -108,8 +108,16 @@ const getAllUsersFromDB = async (query: Record<string, unknown>) => {
 
 const conatactEmailWithEmailSender = async (payload: IContactFormData) => {
   const email = config.nodemailer_contact_email_address as string;
-  const { subject, html } = contactUi(payload)
+  const subject = payload.subject;
+
+  // Render the EJS template
+  const templatePath = path.join(process.cwd(), 'views', 'sendEmail.ejs');
+  // Render the HTML content using EJS
+  const html = await ejs.renderFile(templatePath, { ...payload });
+
+
   await sendEmail(email, subject, html);
+
 
 };
 

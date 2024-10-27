@@ -9,9 +9,8 @@ import { createToken, verifyToken } from './auth.utils';
 import { sendEmail } from '../../utils/sendEmail';
 import { TUser } from '../User/user.interface';
 import { TImageFile } from '../../interface/image.interface';
-import { resetPasswordUi } from '../../utils/htmlView';
-
-
+import path from 'path';
+import ejs from 'ejs';
 const signUpUserIntoDB = async (file: TImageFile, payload: TUser) => {
   // checking if the user is exist
   const user = await User.isUserExistsByEmail(payload?.email);
@@ -258,8 +257,11 @@ const forgetPassword = async (userEmail: string) => {
 
   const resetUILink = `${config.reset_pass_ui_link}/reset-password?email=${user.email}&token=${resetToken} `;
 
-  const { subject, html } = resetPasswordUi(resetUILink)
-
+  // Render the EJS template
+  const templatePath = path.join(process.cwd(), 'views', 'resetMail.ejs');
+  // Render the HTML content using EJS
+  const html = await ejs.renderFile(templatePath, { resetUILink });
+  const subject = 'Reset Your Password';
   await sendEmail(user.email, subject, html);
 };
 

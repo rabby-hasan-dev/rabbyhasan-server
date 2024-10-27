@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conatact Mail</title>
+
+</head>
+
+<body>
+    <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+        <h2 style="color: #4a90e2; text-align: center;">📬 You've Received a New Message</h2>
+        <p style="font-size: 16px; line-height: 1.5;">
+          <strong>From:</strong> <%=name %> <br/>
+          <strong>Email:</strong>  <%=email %>
+        </p>
+        <div style="margin: 20px 0; padding: 10px 20px; background-color: #f1f8ff; border-left: 4px solid #4a90e2; border-radius: 5px;">
+          <h4 style="color: #4a90e2; margin: 0 0 10px;">Subject:<%=subject %> </h4>
+          <p style="font-size: 16px; color: #555;"> <%=message %> </p>
+        </div>
+        <p style="text-align: center; font-size: 14px; color: #888;">
+          <i>If you’re not expecting this email, please disregard it.</i>
+        </p>
+        <div style="text-align: center; margin-top: 30px;">
+          <a href="mailto:${email}" style="text-decoration: none; padding: 10px 15px; background-color: #4a90e2; color: #fff; border-radius: 5px;">Reply to   <%=name %></a>
+        </div>
+      </div>
+</body>
+
+</html>
