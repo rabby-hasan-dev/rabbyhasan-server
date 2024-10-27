@@ -19,7 +19,10 @@ export default {
   nodemailer_user_email: process.env.NODEMAILER_USER_EMAIL,
   nodemailer_user_app_pass: process.env.NODEMAILER__USER_APP_PASSWORD,
   nodemailer_sender_email_address: process.env.NODEMAILER__SENDER_EMAIL_ADDRESS,
+  nodemailer_contact_email_address: process.env.NODEMAILER__CONTACT_EMAIL_ADDRESS,
   cloudinary_cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   cloudinary_api_key: process.env.CLOUDINARY_API_KEY,
   cloudinary_api_secret: process.env.CLOUDINARY_API_SECRET,
+  client_url_link: process.env.CLIENT_URL_LINK,
+  server_url_link: process.env.Server_URL_LINK
 };

@@ -25,6 +25,15 @@ type TSocialLink = {
   url: string;
 };
 
+export interface IContactFormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
+
+
 export interface TUser {
   _id?: Types.ObjectId | string;
   name?: TUserName;

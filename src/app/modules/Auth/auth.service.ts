@@ -9,6 +9,8 @@ import { createToken, verifyToken } from './auth.utils';
 import { sendEmail } from '../../utils/sendEmail';
 import { TUser } from '../User/user.interface';
 import { TImageFile } from '../../interface/image.interface';
+import { resetPasswordUi } from '../../utils/htmlView';
+
 
 const signUpUserIntoDB = async (file: TImageFile, payload: TUser) => {
   // checking if the user is exist
@@ -256,7 +258,9 @@ const forgetPassword = async (userEmail: string) => {
 
   const resetUILink = `${config.reset_pass_ui_link}/reset-password?email=${user.email}&token=${resetToken} `;
 
-  await sendEmail(user.email, resetUILink);
+  const { subject, html } = resetPasswordUi(resetUILink)
+
+  await sendEmail(user.email, subject, html);
 };
 
 const resetPassword = async (

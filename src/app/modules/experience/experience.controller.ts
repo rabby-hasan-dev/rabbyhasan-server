@@ -7,6 +7,7 @@ import { ExperienceServices } from './experience.service';
 
 const createExperience = catchAsync(async (req, res) => {
   const ExperienceData = req.body;
+
   const result =
     await ExperienceServices.CreateExperienceIntoDB(ExperienceData);
 

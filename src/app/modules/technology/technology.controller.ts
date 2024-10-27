@@ -7,6 +7,7 @@ import { technologyServices } from './technology.service';
 const createTechnologys = catchAsync(async (req, res) => {
   const TechnologyData = req.body;
 
+
   const result =
     await technologyServices.CreateTechnologyIntoDB(TechnologyData);
 

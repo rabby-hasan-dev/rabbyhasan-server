@@ -10,7 +10,7 @@ const TechnologySchema = z.object({
     teachers: z.array(z.string()).optional(),
     teams: z.array(z.string()).optional(),
     icon: z.string().trim().optional(),
-    link: z.string().url().optional(),
+    link: z.string().url({ message: 'must be valid url link' }).optional(),
     category: z.enum(['Backend', 'Frontend', 'Other', 'Tools']).optional(),
     projectsCompleted: z.number().nonnegative().optional(),
     projectLinks: z.array(z.string().url()).optional(),

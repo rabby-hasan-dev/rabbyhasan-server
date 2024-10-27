@@ -9,7 +9,7 @@ const CertificationSchema: Schema<ICertification, CertificationModel> =
       issuingOrganization: { type: String, required: true },
       issueDate: { type: Date, required: true },
       expirationDate: { type: Date },
-      credentialUrl: { type: String },
+      credentialUrl: [{ type: String }],
       isDeleted: { type: Boolean, default: false },
     },
     {

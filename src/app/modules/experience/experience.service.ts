@@ -5,6 +5,7 @@ import { Experience } from './experience.model';
 import { IExperience } from './experience.interface';
 import { ExperienceSearchableFields } from './experience.constant';
 
+
 const getAllExperienceFromDB = async (query: Record<string, unknown>) => {
   const UserQuery = new QueryBuilder(
     Experience.find().populate('technologiesUsed'),
@@ -26,6 +27,9 @@ const getAllExperienceFromDB = async (query: Record<string, unknown>) => {
 };
 
 const CreateExperienceIntoDB = async (payload: IExperience) => {
+
+
+
   const result = await Experience.create(payload);
 
   return result;

@@ -67,10 +67,25 @@ const deleteUser = catchAsync(async (req, res) => {
   });
 });
 
+
+const contactUser = catchAsync(async (req, res) => {
+
+  const contactData = req.body;
+  const result = await UserServices.conatactEmailWithEmailSender(contactData);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Send Email succesfully',
+    data: result,
+  });
+});
+
 export const UserControllers = {
   UpdateMyProfile,
   getMyProfile,
   getSingleUser,
   getAllUsers,
   deleteUser,
+  contactUser
 };

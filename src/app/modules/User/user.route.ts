@@ -41,4 +41,11 @@ router.delete(
   UserControllers.deleteUser,
 );
 
+
+router.post(
+  '/contact',
+
+  UserControllers.contactUser,
+);
+
 export const UsersRoutes = router;

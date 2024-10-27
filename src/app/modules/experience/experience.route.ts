@@ -9,13 +9,13 @@ const router = express.Router();
 
 router.post(
   '/',
-  auth(USER_ROLE.USER),
+  auth(USER_ROLE.ADMIN, USER_ROLE.SUPER_ADMIN),
   validateRequest(experienceValidationSchema.ExperienceSchema),
   ExperienceControllers.createExperience,
 );
 router.get(
   '/',
-  // auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
+
   ExperienceControllers.getAllExperiences,
 );
 
@@ -27,14 +27,14 @@ router.get(
 
 router.put(
   '/:experienceId',
-  auth(USER_ROLE.USER, USER_ROLE.ADMIN),
+  auth(USER_ROLE.ADMIN, USER_ROLE.SUPER_ADMIN),
   validateRequest(experienceValidationSchema.UpdateExperienceSchema),
   ExperienceControllers.updateExperience,
 );
 router.delete(
   '/:experienceId',
-  auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
-  ExperienceControllers.updateExperience,
+  auth(USER_ROLE.ADMIN, USER_ROLE.SUPER_ADMIN),
+  ExperienceControllers.deleteExperience,
 );
 
 export const experienceRoutes = router;

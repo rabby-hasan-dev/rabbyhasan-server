@@ -9,13 +9,13 @@ const router = express.Router();
 
 router.post(
   '/',
-  auth(USER_ROLE.USER),
+  auth(USER_ROLE.ADMIN, USER_ROLE.SUPER_ADMIN),
   validateRequest(technologyValidationSchema.TechnologySchema),
   technologyControllers.createTechnologys,
 );
 router.get(
   '/',
-  auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
+  auth(USER_ROLE.ADMIN, USER_ROLE.SUPER_ADMIN),
   technologyControllers.getAllTechnologyss,
 );
 
@@ -34,7 +34,7 @@ router.put(
 );
 router.delete(
   '/:technologyId',
-  auth(USER_ROLE.ADMIN, USER_ROLE.USER, USER_ROLE.SUPER_ADMIN),
+  auth(USER_ROLE.ADMIN, USER_ROLE.SUPER_ADMIN),
   validateRequest(technologyValidationSchema.UpdateTechnologySchema),
   technologyControllers.deleteTechnologys,
 );

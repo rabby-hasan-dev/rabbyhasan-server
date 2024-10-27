@@ -5,10 +5,15 @@ import AppError from '../../errors/AppError';
 import { USER_ROLE } from '../../constant';
 import { User } from './user.model';
 import { JwtPayload } from 'jsonwebtoken';
-import { TUser } from './user.interface';
+import { IContactFormData, TUser } from './user.interface';
 import { TImageFile } from '../../interface/image.interface';
 import QueryBuilder from '../../builder/QueryBuilder';
 import { UserSearchableFields } from './user.constant';
+import { sendEmail } from '../../utils/sendEmail';
+import { contactUi } from '../../utils/htmlView';
+import config from '../../config';
+
+
 
 const getMyProfileIntoDB = async (email: string, role: string) => {
   let result = null;
@@ -99,10 +104,20 @@ const getAllUsersFromDB = async (query: Record<string, unknown>) => {
   };
 };
 
+
+
+const conatactEmailWithEmailSender = async (payload: IContactFormData) => {
+  const email = config.nodemailer_contact_email_address as string;
+  const { subject, html } = contactUi(payload)
+  await sendEmail(email, subject, html);
+
+};
+
 export const UserServices = {
   updateUserDataIntoDB,
   getMyProfileIntoDB,
   getAllUsersFromDB,
   getSingleUserFromDB,
   delteUserFromDB,
+  conatactEmailWithEmailSender
 };
